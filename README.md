@@ -4,10 +4,10 @@ OLC/PixelGameEngine for Android
 
 So it's time to bring PGE into your pocket so you can play with it anywhere.
 
-I really love how well it fits in with the Android CMAKE toolchain. 
+This was intended to be a 5 minute test, but as I faced lots of unexpected interesting challenges getting all the pieces to work I decided to do a "self-learning" project about the deep android internals.
+I hope it is useful to you. Feel free to contribute, I would love this project to evolve. Funny thing about the PGE is, when you see it running on a phone, it just looks GORGEOUS. Beware you are going to get addicted to test every tutorial or app you have.
 
-This was intended to be a 5 minute test, but as I faced lots of unexpected interesting challenges  getting all the pieces to work I decided to do a "self-learning" project about the deep android internals.
-I hope it is useful to you !
+Regarding that, I will be porting the examples into the demo project.
 
 
 ATTENTION
