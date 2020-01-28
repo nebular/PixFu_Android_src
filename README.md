@@ -21,6 +21,7 @@ The demo template project is all you need. You only need this project if you wan
 
 Introduction
 ------------
+![screenshot](doc/screen3.png)
 
 So this project has several components:
 
@@ -33,7 +34,6 @@ each architecture has a folder, and added code for the specifics of Android plat
 2) libpng
 
 It has to be compiled for Android.
-
 
 3) The launcher: An Android Activity with a GLES/3 Native Window, and Java support files to inirialize it.
    Also takes care of unpacking the assets into the filesystem, and manages accelerometer and touch, that are injected into the PGE as Mouse and Joystick values.
