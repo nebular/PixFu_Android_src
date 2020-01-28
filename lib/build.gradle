@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
 
-ext.libName = "olcPGE_Android"
+ext.libName = "olcpge_android"
 ext.libVersion = "1.0.0"
 
 def platformVersion = 24      // openGLES 3.2 min api level
@@ -42,21 +42,35 @@ android {
 
 task packSoHeaders(type: Zip) {
     println 'Packing header file(s)....'
-    from "${project.rootDir}/${project.name}/src/main/cpp/lib/olcPGE_portable/src"
     archiveName "olcpge_headers.zip"
-    include "*.h"
-    include "**/*.h"
-    include "**/**/*.h"
     destinationDir(file("${project.rootDir}/${project.name}/src/main/res/raw/"))
-    eachFile {
-        def segments = it.getRelativePath().getSegments() as List
-        println segments
-        it.setPath(segments.tail().join("/"))
-        return it
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/olcPGE_portable/src") {
+        include "*.h"
+    }
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/olcPGE_portable/src/arch/android") {
+        include "*.h"
+        into "arch/android"
+    }
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/olcPGE_portable/src/arch/android/plugins") {
+        include "*.h"
+        into "arch/android/plugins"
+    }
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/olcPGE_portable/src/arch/android/libpng/jni") {
+        include "*.h"
+        into "arch/android/libpng"
     }
 }
 
 task copyAAR(type: Copy) {
+    from('build/outputs/aar')
+    into("${project.rootDir}/releases")
+    include(project.name + '-debug.aar')
+    rename (project.name + "-debug.aar", "${libName}.aar")
+//  include(project.name + '-release.aar')
+//  rename (project.name + "-release.aar", "${libName}-${libVersion}-release.aar")
+}
+
+task deployAAR(type: Copy) {
     from('build/outputs/aar')
     into("${project.rootDir}/releases")
     include(project.name + '-debug.aar')

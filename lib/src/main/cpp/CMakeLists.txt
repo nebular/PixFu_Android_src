@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.4.1)
 #
 # OLC/Android user application CMAKE
 #
-# - Just add subdirectory "lib" and link your code with "androidolc"
+# - Just add subdirectory "lib" and link your code with "libolcPGE_Android"
 # - create the "run.cpp" file to instantiate your class
 # - your class will then be started by the launcher
 #

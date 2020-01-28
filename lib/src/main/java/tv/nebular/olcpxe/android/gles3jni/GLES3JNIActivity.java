@@ -39,7 +39,7 @@ import java.io.OutputStream;
 
 public class GLES3JNIActivity extends Activity {
 
-    public final static String OLCAPPNAME = "lonekart";
+    public final static String OLCAPPNAME = "pge";
     GLES3JNIView mView;
 
     @Override protected void onCreate(Bundle icicle) {
@@ -74,7 +74,7 @@ public class GLES3JNIActivity extends Activity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                copyFileOrDir(GLES3JNIActivity.this.getFilesDir(), OLCAPPNAME);
+                copyFileOrDir(new File(GLES3JNIActivity.this.getFilesDir(),"pge"), "");
                 GLES3JNIActivity.this.runOnUiThread(finished);
             }
         }).start();
@@ -85,6 +85,8 @@ public class GLES3JNIActivity extends Activity {
         AssetManager assetManager = this.getAssets();
         String[] assets;
 
+        outdir.mkdirs();
+
         try {
             assets = assetManager.list(path);
 
@@ -94,13 +96,14 @@ public class GLES3JNIActivity extends Activity {
 
             } else {
 
-                File dir = new File(outdir, path);
+                if (path.length()>0) {
+                    File dir = new File(outdir, path);
 
-                if (!dir.exists() && !dir.mkdir())
-                    throw new IOException("Cannot write to storage");
-
+                    if (!dir.exists() && !dir.mkdir())
+                        throw new IOException("Cannot write to storage");
+                }
                 for (int i = 0; i < assets.length; ++i) {
-                    copyFileOrDir(outdir, path + "/" + assets[i]);
+                    copyFileOrDir(outdir, (path.length()>0? "/" :"")+ assets[i]);
                 }
 
             }
