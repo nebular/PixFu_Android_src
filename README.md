@@ -76,7 +76,19 @@ Getting Started
 `
 1. Open it in Android Studio
 
-1. Press Play
+1. You can modify or add stuff to the launcher Java or Native side
+ 
+ When you want to create the AAR, just type on the terminal, on the project root:
+ 
+ `./gradlew copyAAR`
+ 
+ and the AAR will be generated and copies into /releases/
+ 
+ Then in your user projects, just replace the existing AAR with this new one.
+ 
+ It is important that the name is the same. One file should replace each other.
+ 
+ Then select "Rebuild Project" and your user project will use the updated header files and olc core classes, etc.
 
 To be continued
 
