@@ -28,7 +28,7 @@ So this project has several components:
 
 This is the original olcPixelGameEngine (the OSX port). You can see the modifications at 
 http://github.com/nebular/olcPGE_portable. I basically split into some files the .h, so
-each architecture has a folder. 
+each architecture has a folder, and added code for the specifics of Android platform and opengl glue.
 
 2) libpng
 
