@@ -1,0 +1,68 @@
+apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
+
+ext.libName = "olcPGE_Android"
+ext.libVersion = "1.0.0"
+
+def platformVersion = 24      // openGLES 3.2 min api level
+// def platformVersion = 18    //openGLES 3 min api level
+// def platformVersion = 12    //openGLES 2 min api level
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        minSdkVersion "${platformVersion}"
+        targetSdkVersion 28
+        externalNativeBuild {
+            cmake {
+                arguments '-DANDROID_STL=c++_static'
+                targets 'olcPGE_android', 'olcPGE_portable'
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled = false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                          'proguard-rules.pro'
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            version '3.10.2'
+            path 'src/main/cpp/CMakeLists.txt'
+        }
+    }
+
+}
+
+// Pack header files into /res/raw
+
+task packSoHeaders(type: Zip) {
+    println 'Packing header file(s)....'
+    from "${project.rootDir}/${project.name}/src/main/cpp/lib/olcPGE_portable/src"
+    archiveName "olcpge_headers.zip"
+    include "*.h"
+    include "**/*.h"
+    include "**/**/*.h"
+    destinationDir(file("${project.rootDir}/${project.name}/src/main/res/raw/"))
+    eachFile {
+        def segments = it.getRelativePath().getSegments() as List
+        println segments
+        it.setPath(segments.tail().join("/"))
+        return it
+    }
+}
+
+task copyAAR(type: Copy) {
+    from('build/outputs/aar')
+    into("${project.rootDir}/releases")
+    include(project.name + '-debug.aar')
+    rename (project.name + "-debug.aar", "${libName}-${libVersion}-debug.aar")
+    include(project.name + '-release.aar')
+    rename (project.name + "-release.aar", "${libName}-${libVersion}-release.aar")
+}
+
+preBuild.dependsOn packSoHeaders
