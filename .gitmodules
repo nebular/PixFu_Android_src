@@ -1,0 +1,3 @@
+[submodule "lib/src/main/cpp/lib/olcPGE_portable"]
+	path = lib/src/main/cpp/lib/olcPGE_portable
+	url = https://github.com/nebular/olcPGE_portable
