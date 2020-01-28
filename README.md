@@ -27,7 +27,7 @@ So this project has several components:
 1) olcPixelGameEngine-portable
 
 This is the original olcPixelGameEngine (the OSX port). You can see the modifications at 
-http://github.com/nebular/olcPGE-portable. I basically split into some files the .h, so
+http://github.com/nebular/olcPGE_portable. I basically split into some files the .h, so
 each architecture has a folder. 
 
 2) libpng
