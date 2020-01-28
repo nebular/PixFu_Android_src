@@ -25,6 +25,7 @@
 #else
 // Include the latest possible header file( GL version header )
 #if __ANDROID_API__ >= 24
+
 #include <GLES3/gl32.h>
 #include <olcPixelGameEngine.h>
 
@@ -45,7 +46,6 @@
 #else
 #define ALOGV(...)
 #endif
-
 
 
 #endif // GLES3JNI_H

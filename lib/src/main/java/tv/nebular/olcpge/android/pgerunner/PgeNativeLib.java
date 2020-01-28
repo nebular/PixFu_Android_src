@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package tv.nebular.olcpxe.android.gles3jni;
+package tv.nebular.olcpge.android.pgerunner;
 
 // Wrapper for native library
 
 import android.view.MotionEvent;
 
-public class GLES3JNILib {
+public class PgeNativeLib {
 
      static {
           System.loadLibrary("olcapp");

@@ -18,45 +18,44 @@
  */
 
 #include <EGL/egl.h>
-#include "RendererOlc.h"
+#include "RendererPge.h"
 
-RendererOlc *RendererOlc::createRender(olc::PixelGameEngine *engine) {
+RendererPge *RendererPge::createRender(olc::PixelGameEngine *engine) {
 
-	RendererOlc *renderer = new RendererOlc(engine);
+	auto *renderer = new RendererPge(engine);
 	if (!renderer->init()) {
 		delete renderer;
-		return NULL;
+		return nullptr;
 	}
 	return renderer;
 }
 
 
-RendererOlc::RendererOlc(olc::PixelGameEngine *engine)
+RendererPge::RendererPge(olc::PixelGameEngine *engine)
 		: mEglContext(eglGetCurrentContext()),
 		  pEngine(engine) {
 }
 
 
-
-RendererOlc::~RendererOlc() {
-	/* The destructor may be called after the context has already been
-	 * destroyed, in which case our objects have already been destroyed.
-	 *
-	 * If the context exists, it must be current. This only happens when we're
-	 * cleaning up after a failed init().
-	*/
+RendererPge::~RendererPge() {
 	if (isInited)
 		pEngine->olca_thread_deinit();
 }
 
-bool RendererOlc::init() {
+/**
+ * We are only in business when we know the size of our window. Until then ... just wait.
+ * @return  true
+ */
+
+bool RendererPge::init() {
 
 	ALOGV("Renderer INITED, waiting for RESIZE");
+
 	return true;
 
 }
 
-bool RendererOlc::resize(uint32_t w, uint32_t h) {
+bool RendererPge::resize(uint32_t w, uint32_t h) {
 
 	ALOGV("Renderer OLC RESIZE w %d, h %d", w, h);
 
@@ -65,12 +64,14 @@ bool RendererOlc::resize(uint32_t w, uint32_t h) {
 
 		Renderer::resize(w, h);
 
+		// construct the PGE class with our window size
 		if (pEngine->Construct(w, h, 1, 1, false) == olc::FAIL)
 			return false;
 
 		if (pEngine->Start() == olc::FAIL)
 			return false;
 
+		// calls former pge::EngineThread() first part (OpenGL init)
 		if (!pEngine->olca_thread_init())
 			return false;
 
@@ -80,13 +81,20 @@ bool RendererOlc::resize(uint32_t w, uint32_t h) {
 
 }
 
-void RendererOlc::draw(float elapsedTimeNs) {
+void RendererPge::draw(float elapsedTimeNs) {
+
+	// calls the PGE EngineThread loop that now is not on a thread. It is us here the ones
+	// in a thread !
 
 	if (isInited)
-		pEngine->olca_thread_tick( elapsedTimeNs  );
+		pEngine->olca_thread_tick(elapsedTimeNs);
 }
 
-void RendererOlc::OnMotionEvent(MotionEvent_t event) {
+void RendererPge::OnMotionEvent(MotionEvent_t event) {
+
+	// MotionEvent supplied here by the Java part, then we send it down to the engine. It will be
+	// translated into GetMouse positions.
+
 	if (isInited)
 		pEngine->olca_on_motionevent(event);
 }

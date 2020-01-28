@@ -22,11 +22,15 @@ class Renderer {
 public:
 
 	Renderer();
+
 	virtual ~Renderer();
+
 	void render();
 
-	virtual bool resize(uint32_t w,uint32_t h);
+	virtual bool resize(uint32_t w, uint32_t h);
+
 	virtual void draw(float fElapsedNs) = 0;
+
 	virtual void OnMotionEvent(MotionEvent_t event) = 0;
 
 protected:

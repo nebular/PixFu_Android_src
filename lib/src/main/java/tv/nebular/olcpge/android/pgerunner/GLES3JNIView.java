@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package tv.nebular.olcpxe.android.gles3jni;
+package tv.nebular.olcpge.android.pgerunner;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
@@ -25,23 +26,15 @@ import android.view.MotionEvent;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import static tv.nebular.olcpxe.android.gles3jni.GLES3JNIActivity.OLCAPPNAME;
+import static tv.nebular.olcpge.android.pgerunner.PgeRunner.OLCAPPNAME;
 
+@SuppressLint("ViewConstructor")
 class GLES3JNIView extends GLSurfaceView {
 
     public static float SCALE_NATIVE = 1;       // native resolution (full res)
     public static float SCALE_DP = 0;           // dp resolution using system density
 
-    private static final String TAG = "GLES3JNI";
-    private static final boolean DEBUG = true;
-
     private static String PATH = null;
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        GLES3JNILib.onTouch(event);
-        return true;
-    }
 
     public GLES3JNIView(Context context, float scale) {
         super(context);
@@ -50,6 +43,7 @@ class GLES3JNIView extends GLSurfaceView {
 
         // Pick an EGLConfig with RGB8 color, 16-bit depth, no stencil,
         // supporting OpenGL ES 2.0 or later backwards-compatible versions.
+
         setEGLConfigChooser(8, 8, 8, 0, 16, 0);
         setEGLContextClientVersion(3);
 
@@ -66,17 +60,23 @@ class GLES3JNIView extends GLSurfaceView {
 
     }
 
+
+    @SuppressLint("ClickableViewAccessibility")
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        PgeNativeLib.onTouch(event);
+        return true;
+    }
+
+
     private static class Renderer implements GLSurfaceView.Renderer {
         public void onDrawFrame(GL10 gl) {
-            GLES3JNILib.step();
+            PgeNativeLib.step();
         }
-
-        public void onSurfaceChanged(GL10 gl, int width, int height) {
-            GLES3JNILib.resize(width, height);
-        }
-
+        public void onSurfaceChanged(GL10 gl, int width, int height) { PgeNativeLib.resize(width, height); }
         public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-            GLES3JNILib.init(PATH);
+            PgeNativeLib.init(PATH);
         }
     }
+
 }
