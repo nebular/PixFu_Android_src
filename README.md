@@ -47,15 +47,21 @@ All these four components are built as shared .so libraries
 5) The CMAKE and Gradle compile and build scripts. This has been the most complex part of the project, as we are releasing all this into a cool AAR
 module that you just insert into your project and all will just work.
 
-There were several tedious problems to solve, mostly derived from splitting in two projects:
+There were several inconveniences to solve, mostly derived from splitting in two projects, and the fact that Android CMAKE toolchains and library projects are still very unconnected worlds. 
+The root of the problem  is that everything is designed so a main Java app can consume CMAKE native apps AND library projects, but not that a library
+project would be used to feed a user CMAKE without any Java (exactly our case). As CMAKE runs before the library project merging, we had to find a way
+to pack what the user CMAKE needs in the AAR, and then unpack everything into the User CMAKE before the build starts. Also, to make development easier on the user side,
+we needed to unpack the collected header files and make them available automatically, so the user don't need to install any headeers or anything
+other than her CPP classes. 
 
-- CMAKEs do not know about each other (olcPGE + launcher come in .sos)
-- solution to bring the SO's to the user build process
-- solution to pack the headers in the resulting AAR
-- solution to unpack it all, feed the libraries to CMAKE, the headers to the environment, etc
-- solution to use the exported AAR as a flat repository so Android Library Project classes are loaded by the classloader
-- solution to circuvent the new gradle build system that hides dependencies and makes things really complicated 
+So thanks to countless StackOverflow tricks, these things are implemented in the CMakeLists and gradle scripts and everything should work
+out of the box. You will be able to create a PGE app as quick as @javidx9 does with Visual Studio !
 
+Tricks in the scripts:
+- The AAR is used in three different ways: as an imported AAR Library Module, as a communication channel between the user project and the precompiled root project, and as a flat repository with Java Classes.
+* User CMAKE links with so's and headers packed into, and unpacked from, the AAR
+* Headers are populated into userspace automatically
+* The "flat repository mode",  is the magic sauce that allows to declare the AAR as a compile dependency, propagating the activity launcher in the AAR to the user project automatically.
 
 Pre-requisites
 --------------
