@@ -36,10 +36,11 @@ It has to be compiled for Android.
 
 
 3) The launcher: An Android Activity with a GLES/3 Native Window, and Java support files to inirialize it.
-   Also manages accelerometer and touch, that are injected into the PGE as Mouse and Joystick values.
+   Also takes care of unpacking the assets into the filesystem, and manages accelerometer and touch, that are injected into the PGE as Mouse and Joystick values.
 
-4) The Main Native App : The Main native app implements the native OpenGL loop. It is here where we
-interface the PGE, for exmaple Android will request an OpenGL step, that we forward to the PGE.
+4) The Main Native App: The native twin of the above, connected by a JNI bridge.  The Main native 
+app implements the native OpenGL loop. It is here where we interface the PGE, for exmaple Android 
+will request an OpenGL step, that we forward to the PGE.
 
 All these four components are built as shared .so libraries
 
