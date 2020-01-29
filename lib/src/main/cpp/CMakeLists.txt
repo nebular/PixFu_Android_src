@@ -8,6 +8,8 @@ cmake_minimum_required(VERSION 3.4.1)
 # - your class will then be started by the launcher
 #
 
+set(CMAKE_BUILD_TYPE Debug)
+
 # Main C & C++ flags
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -frtti -fexceptions -g -O0 -Wall")

@@ -19,7 +19,10 @@
 
 class Renderer {
 
+
 public:
+
+	typedef enum LCycle { ONPAUSE, ONRESUME, ONSURFACECREATED } LCycle_t;
 
 	Renderer();
 
@@ -31,7 +34,9 @@ public:
 
 	virtual void draw(float fElapsedNs) = 0;
 
-	virtual void OnMotionEvent(MotionEvent_t event) = 0;
+	virtual void onMotionEvent(MotionEvent_t event) = 0;
+
+	virtual void onLifeCycle(LCycle_t status) = 0;
 
 protected:
 	uint64_t mLastFrameNs;

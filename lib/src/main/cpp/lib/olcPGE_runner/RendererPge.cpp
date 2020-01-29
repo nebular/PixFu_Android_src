@@ -20,46 +20,57 @@
 #include <EGL/egl.h>
 #include "RendererPge.h"
 
-RendererPge *RendererPge::createRender(olc::PixelGameEngine *engine) {
-
-	auto *renderer = new RendererPge(engine);
-	if (!renderer->init()) {
-		delete renderer;
-		return nullptr;
-	}
-	return renderer;
-}
-
-
 RendererPge::RendererPge(olc::PixelGameEngine *engine)
 		: mEglContext(eglGetCurrentContext()),
 		  pEngine(engine) {
 }
 
-
 RendererPge::~RendererPge() {
-	if (isInited)
+	ALOGV("RendererPge: Destruct");
+	if (isInited) {
 		pEngine->olca_thread_deinit();
+		isInited = false;
+	}
 }
 
-/**
- * We are only in business when we know the size of our window. Until then ... just wait.
- * @return  true
- */
-
-bool RendererPge::init() {
-
-	ALOGV("Renderer INITED, waiting for RESIZE");
-
-	return true;
-
+RendererPge *RendererPge::createRender(olc::PixelGameEngine *engine) {
+	return new RendererPge(engine);
 }
+
+
+void RendererPge::onLifeCycle(LCycle_t status) {
+
+	// ALOGV("RendererPge: OLC PAUSE %d", status);
+	// android system pause
+
+	switch (status) {
+
+		case ONSURFACECREATED:
+			// context has changed
+			mEglContext = eglGetCurrentContext();
+			break;
+
+		case ONPAUSE:
+			// clean up resources on the PGE side
+			pEngine->olca_thread_deinit();
+			break;
+
+		case ONRESUME:
+			// nothing as init() will be called again
+			break;
+	}
+}
+
+// "much more than a resize" as this function is called when the GL surface is created
+// it is really the only place where we have guaranteed access to the GL context just created
+// and with a valid size
 
 bool RendererPge::resize(uint32_t w, uint32_t h) {
 
-	ALOGV("Renderer OLC RESIZE w %d, h %d", w, h);
+	//	ALOGV("RendererPge: OLC RESIZE w %d, h %d", w, h);
 
 	if (!isInited) {
+
 		isInited = true;
 
 		Renderer::resize(w, h);
@@ -75,6 +86,10 @@ bool RendererPge::resize(uint32_t w, uint32_t h) {
 		if (!pEngine->olca_thread_init())
 			return false;
 
+	} else {
+		glViewport(0, 0, w, h);
+		pEngine->olca_thread_reinit(w, h);
+		Renderer::resize(w, h);
 	}
 
 	return true;
@@ -90,7 +105,7 @@ void RendererPge::draw(float elapsedTimeNs) {
 		pEngine->olca_thread_tick(elapsedTimeNs);
 }
 
-void RendererPge::OnMotionEvent(MotionEvent_t event) {
+void RendererPge::onMotionEvent(MotionEvent_t event) {
 
 	// MotionEvent supplied here by the Java part, then we send it down to the engine. It will be
 	// translated into GetMouse positions.

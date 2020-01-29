@@ -3,7 +3,7 @@
  * Generic Android OpenGL Native Application Launcher
  * Author: Rodolfo Lopez Pintor 2020.
  *
- * License: Creative Commons Attribution (Latest version)
+ * License: Creative Commons CC-BY 4.0
  *
  * This is the native part of the launcher application. Will lbe called by Android to initialize, render,
  * deinit and on mouse events.
@@ -48,7 +48,8 @@ static GLboolean gl3stubInit() {
 
 
 /**
- * Initialization
+ * Initialization. This is really onSurfaceCreated and the place to init OpenGL
+ * It may be called several times if the user goes back to home, etc.
  * Called from JAVA
  */
 
@@ -56,32 +57,32 @@ extern "C" JNIEXPORT void JNICALL
 Java_tv_nebular_olcpge_android_pgerunner_PgeNativeLib_init(JNIEnv *env, jclass obj,
 														   jstring internalFilesPath) {
 
-	if (g_renderer) {
-		delete g_renderer;
-		g_renderer = nullptr;
-	}
+	if (g_renderer == nullptr) {
 
-	const char *cstr = env->GetStringUTFChars(internalFilesPath, nullptr);
+		const char *cstr = env->GetStringUTFChars(internalFilesPath, nullptr);
 
-	/*
-	 * Initialize the Base Path for the PGE. Android is very restrictive and will only allow to write
-	 * in very few places. This path is the internal application storage directory, and all assets are
-	 * copied here by the Java part.
-	 */
+		/*
+		 * Initialize the Base Path for the PGE. Android is very restrictive and will only allow to write
+		 * in very few places. This path is the internal application storage directory, and all assets are
+		 * copied here by the Java part.
+		 */
 
-	olc::PixelGameEngine::ROOTPATH = std::string(cstr) + "/";
+		olc::PixelGameEngine::ROOTPATH = std::string(cstr) + "/";
 
-	/*
-	 * Creates the Pge Renderer. It is there where we will instantiate the PGE, and
-	 * where the PGE object lives.
-	 */
+		/*
+		 * Creates the Pge Renderer. It is there where we will instantiate the PGE, and
+		 * where the PGE object lives.
+		 */
 
-	const char *versionStr = (const char *) glGetString(GL_VERSION);
-	if ((strstr(versionStr, "OpenGL ES 3.") && gl3stubInit()) ||
-		strstr(versionStr, "OpenGL ES 2.")) {
-		g_renderer = RendererPge::createRender(olc::PixelGameEngine::BOOTINSTANCE);
+		const char *versionStr = (const char *) glGetString(GL_VERSION);
+		if ((strstr(versionStr, "OpenGL ES 3.") && gl3stubInit()) ||
+			strstr(versionStr, "OpenGL ES 2.")) {
+			g_renderer = RendererPge::createRender(olc::PixelGameEngine::BOOTINSTANCE);
+		} else {
+			ALOGE("Unsupported OpenGL ES version");
+		}
 	} else {
-		ALOGE("Unsupported OpenGL ES version");
+		g_renderer->onLifeCycle(Renderer::ONSURFACECREATED);
 	}
 }
 
@@ -111,6 +112,13 @@ extern "C" JNIEXPORT void JNICALL
 Java_tv_nebular_olcpge_android_pgerunner_PgeNativeLib_step(JNIEnv *env, jclass obj) {
 	if (g_renderer) {
 		g_renderer->render();
+	}
+}
+
+extern "C" JNIEXPORT void JNICALL
+Java_tv_nebular_olcpge_android_pgerunner_PgeNativeLib_onPause(JNIEnv *env, jclass obj, jboolean status) {
+	if (g_renderer) {
+		g_renderer->onLifeCycle(status ? Renderer::ONPAUSE : Renderer::ONRESUME);
 	}
 }
 
@@ -153,7 +161,7 @@ Java_tv_nebular_olcpge_android_pgerunner_PgeNativeLib_onTouch(JNIEnv *jenv, jcla
 	inputEvent.Y0 = y0 / screenDensity;
 	inputEvent.X1 = x1 / screenDensity;
 	inputEvent.Y1 = y1 / screenDensity;
-	g_renderer->OnMotionEvent(inputEvent);
+	g_renderer->onMotionEvent(inputEvent);
 }
 
 #pragma clang diagnostic pop

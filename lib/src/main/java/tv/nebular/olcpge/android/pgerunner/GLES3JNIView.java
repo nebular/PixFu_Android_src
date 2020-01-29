@@ -63,6 +63,18 @@ class GLES3JNIView extends GLSurfaceView {
 
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        PgeNativeLib.onPause(true);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        PgeNativeLib.onPause(false);
+    }
 
     @SuppressLint("ClickableViewAccessibility")
     @Override

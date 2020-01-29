@@ -2,8 +2,12 @@
 #define RENDERERPGE_H
 
 /*
- * The PGE Renderer.
+ *
+ * A renderer to interface olcPixelGameEngine
  * Author: Rodolfo Lopez Pintor, 2020
+ *
+ * This is just-for-fun, open source code, licensed under Creative Commons CC-BY 4.0.
+ *
  */
 
 #include "PgeRunner.h"
@@ -15,28 +19,27 @@ class RendererPge : public Renderer {
 
 public:
 
+	RendererPge(olc::PixelGameEngine *engine);
+
 	virtual ~RendererPge();
 
 	bool resize(uint32_t w, uint32_t h);
 
-	bool init();
-
-	RendererPge(olc::PixelGameEngine *engine);
-
-	void draw(float elapsedTimeNs);
-
-	void OnMotionEvent(MotionEvent_t event);
+	void onMotionEvent(MotionEvent_t event);
 
 	static RendererPge *createRender(olc::PixelGameEngine *engine);
 
 protected:
 
+	void draw(float elapsedTimeNs);
+
 private:
 
 	bool isInited = false;
-	const EGLContext mEglContext;
+	EGLContext mEglContext;
 	olc::PixelGameEngine *pEngine = nullptr;
 
+	void onLifeCycle(LCycle_t status);
 };
 
 #endif //GLES3JNI_RENDEREROLC_H
