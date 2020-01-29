@@ -1,9 +1,8 @@
-/*
+/**
  *
  * Generic Android OpenGL Native Application Launcher
- * Author: Rodolfo Lopez Pintor 2020.
- *
- * License: Creative Commons Attribution (Latest version)
+ * @author Rodolfo Lopez Pintor 2020.
+ * @license Creative Commons CC-BY 4.0
  *
  * This launcher is meant to be generic and packed into a shared library. Ideally no modifications
  * are needed for your different projects, so you can concentrate on developing the C++ applications
@@ -44,14 +43,14 @@ public class PgeRunner extends Activity {
 	public final static String OLCAPPNAME = "pge";
 	public  static float SCALE;
 
-	GLES3JNIView mView;
+	NativeGlSurfaceView mView;
 
 	/**
 	 * Concenience constructor for DP resoution
 	 */
 
 	public PgeRunner() {
-		this(GLES3JNIView.SCALE_DP);
+		this(NativeGlSurfaceView.SCALE_DP);
 	}
 
 	/**
@@ -85,7 +84,7 @@ public class PgeRunner extends Activity {
 		recursiveCopyAssets(new Runnable() {
 			@Override
 			public void run() {
-				mView = new GLES3JNIView(PgeRunner.this, SCALE);
+				mView = new NativeGlSurfaceView(PgeRunner.this, SCALE);
 				setContentView(mView);
 				mView.onResume();
 			}

@@ -1,7 +1,8 @@
-/*
+/**
  *
  * A renderer to interface olcPixelGameEngine
- * Author: Rodolfo Lopez Pintor, 2020
+ * @author Rodolfo Lopez Pintor 2020.
+ * @license Creative Commons CC-BY 4.0
  *
  * This is just-for-fun, open source code, licensed under Creative Commons Attribution.
  *

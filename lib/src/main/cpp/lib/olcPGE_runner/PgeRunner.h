@@ -1,9 +1,8 @@
-/*
+/**
  *
  * Generic Android OpenGL Native Application Launcher
- * Author: Rodolfo Lopez Pintor 2020.
- *
- * License: Creative Commons CC-BY 4.0
+ * @author Rodolfo Lopez Pintor 2020.
+ * @license Creative Commons CC-BY 4.0
  *
  * This is the native part of the launcher application. Will lbe called by Android to initialize, render,
  * deinit and on mouse events.

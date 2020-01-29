@@ -1,9 +1,12 @@
 /**
+ *
  * A generic render. Mind that up to know, all the stack doesn't know the PGE, so it is abstraact to be used
  * as a genric android native application launcher. Is by extending this class how we will tie the renderer
  * to a PGE instance.
  *
- * Author: Rodolfo Lopez Pintor 2020.
+ * @author Rodolfo Lopez Pintor 2020.
+ * @license Creative Commons CC-BY 4.0
+ *
  */
 
 
