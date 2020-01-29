@@ -29,6 +29,6 @@ public class PgeNativeLib {
      public static native void init(String internalFilesPath);
      public static native void resize(int width, int height);
      public static native void step();
-     public static native void onTouch(MotionEvent event);
+     public static native void onTouch(MotionEvent event,  int decodedAction, int pointerIndex, float screenDensity);
 
 }

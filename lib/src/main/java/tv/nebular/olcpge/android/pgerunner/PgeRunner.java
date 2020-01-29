@@ -25,6 +25,7 @@ package tv.nebular.olcpge.android.pgerunner;
 import android.app.Activity;
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.ViewGroup;
@@ -41,7 +42,7 @@ import java.io.OutputStream;
 public class PgeRunner extends Activity {
 
 	public final static String OLCAPPNAME = "pge";
-	float mScale;
+	public  static float SCALE;
 
 	GLES3JNIView mView;
 
@@ -61,7 +62,7 @@ public class PgeRunner extends Activity {
 	 */
 
 	public PgeRunner(float densityPixelSize) {
-		mScale = densityPixelSize;
+		SCALE = densityPixelSize;
 	}
 
 
@@ -74,10 +75,17 @@ public class PgeRunner extends Activity {
 		p.setIndeterminate(true);
 		addContentView(p, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER));
 
+
+		if (SCALE == 0) {
+			DisplayMetrics displayMetrics = new DisplayMetrics();
+			getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+			SCALE = displayMetrics.density;
+		}
+
 		recursiveCopyAssets(new Runnable() {
 			@Override
 			public void run() {
-				mView = new GLES3JNIView(PgeRunner.this, mScale);
+				mView = new GLES3JNIView(PgeRunner.this, SCALE);
 				setContentView(mView);
 				mView.onResume();
 			}

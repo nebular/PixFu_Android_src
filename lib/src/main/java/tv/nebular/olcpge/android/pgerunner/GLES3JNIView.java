@@ -27,6 +27,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import static tv.nebular.olcpge.android.pgerunner.PgeRunner.OLCAPPNAME;
+import static tv.nebular.olcpge.android.pgerunner.PgeRunner.SCALE;
 
 @SuppressLint("ViewConstructor")
 class GLES3JNIView extends GLSurfaceView {
@@ -35,6 +36,8 @@ class GLES3JNIView extends GLSurfaceView {
     public static float SCALE_DP = 0;           // dp resolution using system density
 
     private static String PATH = null;
+
+    int nWidth, nHeight;
 
     public GLES3JNIView(Context context, float scale) {
         super(context);
@@ -52,10 +55,10 @@ class GLES3JNIView extends GLSurfaceView {
 
         if (scale == 0) scale = displayMetrics.density;
 
-        int height = (int) (displayMetrics.heightPixels / scale);
-        int width = (int) (displayMetrics.widthPixels / scale);
+        nHeight = (int) (displayMetrics.heightPixels / scale);
+        nWidth = (int) (displayMetrics.widthPixels / scale);
 
-        getHolder().setFixedSize(width,height);
+        getHolder().setFixedSize(nWidth,nHeight);
         setRenderer(new Renderer());
 
     }
@@ -64,7 +67,11 @@ class GLES3JNIView extends GLSurfaceView {
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        PgeNativeLib.onTouch(event);
+        // calculate things that are easy here and complicated in the native side
+        int action = event.getActionMasked();
+        int index = event.getActionIndex();
+        int pointerId = event.getPointerId(index);
+        PgeNativeLib.onTouch(event, action, pointerId, SCALE);
         return true;
     }
 

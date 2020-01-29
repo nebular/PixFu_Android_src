@@ -35,7 +35,7 @@ Java_tv_nebular_olcpge_android_pgerunner_PgeNativeLib_resize(JNIEnv *env, jclass
 															 jint height);
 JNIEXPORT void JNICALL
 Java_tv_nebular_olcpge_android_pgerunner_PgeNativeLib_onTouch(JNIEnv *env, jclass obj,
-															  jobject motionEvent);
+															  jobject motionEvent,  jint decodedAction, jint pointerId, jfloat screenDensity);
 };
 
 #if !defined(DYNAMIC_ES3)
@@ -121,11 +121,13 @@ Java_tv_nebular_olcpge_android_pgerunner_PgeNativeLib_step(JNIEnv *env, jclass o
 
 extern "C" JNIEXPORT void JNICALL
 Java_tv_nebular_olcpge_android_pgerunner_PgeNativeLib_onTouch(JNIEnv *jenv, jclass obj,
-															  jobject motionEvent) {
+															  jobject motionEvent,  jint decodedAction, jint pointerId, jfloat screenDensity) {
+
 	jclass motionEventClass = jenv->GetObjectClass(motionEvent);
 
 	jmethodID pointersCountMethodId = jenv->GetMethodID(motionEventClass, "getPointerCount", "()I");
 	int pointersCount = jenv->CallIntMethod(motionEvent, pointersCountMethodId);
+
 	jmethodID getActionMethodId = jenv->GetMethodID(motionEventClass, "getAction", "()I");
 	int32_t action = jenv->CallIntMethod(motionEvent, getActionMethodId);
 
@@ -145,10 +147,12 @@ Java_tv_nebular_olcpge_android_pgerunner_PgeNativeLib_onTouch(JNIEnv *jenv, jcla
 	MotionEvent_t inputEvent;
 	inputEvent.PointersCount = pointersCount;
 	inputEvent.Action = action;
-	inputEvent.X0 = (int) x0;
-	inputEvent.Y0 = (int) y0;
-	inputEvent.X1 = (int) x1;
-	inputEvent.Y1 = (int) y1;
+	inputEvent.RawAction = decodedAction;
+	inputEvent.PointerId = pointerId;
+	inputEvent.X0 = x0 / screenDensity;
+	inputEvent.Y0 = y0 / screenDensity;
+	inputEvent.X1 = x1 / screenDensity;
+	inputEvent.Y1 = y1 / screenDensity;
 	g_renderer->OnMotionEvent(inputEvent);
 }
 
