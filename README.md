@@ -27,9 +27,11 @@ So this project has several components:
 
 1) olcPixelGameEngine-portable
 
-This is the original olcPixelGameEngine (the OSX port). You can see the modifications at 
-http://github.com/nebular/olcPGE_portable. I basically split into some files the .h, so
-each architecture has a folder, and added code for the specifics of Android platform and opengl glue.
+This is like the original olcPixelGameEngine using also parts from the OSX port. You can see the modifications at 
+http://github.com/nebular/olcPGE_portable. This fork moves arch-dependent code to separate folders
+as platforms like Mac and Android need to include files and libraries alongside the .h. 
+
+ ![screenshot](doc/screen4.png)
 
 2) libpng
 
@@ -78,23 +80,24 @@ Getting Started
 
 1. You can modify or add stuff to the launcher Java or Native side
  
- When you want to create the AAR, just type on the terminal, on the project root:
+ When you want to create the AAR, after building it, just type on the terminal, on the project root:
  
  `./gradlew copyAAR`
  
  and the AAR will be generated and copies into /releases/
- 
+  
  Then in your user projects, just replace the existing AAR with this new one.
  
- It is important that the name is the same. One file should replace each other.
+ It is important that the name is the same. One file should replace the other.
  
- Then select "Rebuild Project" and your user project will use the updated header files and olc core classes, etc.
+ Then just Play the project, don't even need to rebuild it. Gradle will detect the updated AAR and generate the updated headers.
 
 To be continued
 
 Support
 -------
-If you've found an error in these samples, please [file an issue] (https://github.com/nebular/olcPGE_Android/issues/new).
+
+Please [file an issue] or suggestion at (https://github.com/nebular/olcPGE_Android/issues/new).
 
 Patches are encouraged, and may be submitted by [forking this project](https://github.com/nebular/olcPGE_Android/fork) and submitting a pull request through GitHub.
 
