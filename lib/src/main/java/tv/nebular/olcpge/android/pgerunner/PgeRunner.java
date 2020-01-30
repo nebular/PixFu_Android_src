@@ -37,7 +37,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-
 public class PgeRunner extends Activity {
 
 	public final static String OLCAPPNAME = "pge";
@@ -123,7 +122,6 @@ public class PgeRunner extends Activity {
 	public void copyFileOrDir(File outdir, String path) {
 		AssetManager assetManager = this.getAssets();
 		String[] assets;
-
 		outdir.mkdirs();
 
 		try {
@@ -142,7 +140,7 @@ public class PgeRunner extends Activity {
 						throw new IOException("Cannot write to storage");
 				}
 				for (int i = 0; i < assets.length; ++i) {
-					copyFileOrDir(outdir, (path.length() > 0 ? "/" : "") + assets[i]);
+					copyFileOrDir(outdir, (path.length() > 0 ? path+"/": "") + assets[i]);
 				}
 
 			}
