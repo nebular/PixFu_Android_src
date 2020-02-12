@@ -13,7 +13,7 @@
 #include <time.h>
 
 #include "PixEngine.hpp"
-#include "arch/android/androidlayer.h"
+#include "arch/android/androidlayer.hpp"
 
 // ----------------------------------------------------------------------------
 // Interface to the ES2 and ES3 renderers, used by JNI code.

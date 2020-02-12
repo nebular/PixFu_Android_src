@@ -4,3 +4,4 @@
 .DS_Store
 .cxx
 build
+src/main/assets/*

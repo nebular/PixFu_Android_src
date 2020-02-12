@@ -21,7 +21,7 @@
 #include <EGL/egl.h>
 #include "RendererPge.h"
 #include "PixEngine.hpp"
-#include "arch/android/androidlayer.h"
+#include "arch/android/androidlayer.hpp"
 
 namespace rgl {
 

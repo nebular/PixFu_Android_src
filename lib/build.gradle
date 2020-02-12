@@ -45,10 +45,12 @@ task packSoHeaders(type: Zip) {
     archiveName "pixengine_headers.zip"
     destinationDir(file("${project.rootDir}/${project.name}/src/main/res/raw/"))
     from ("${project.rootDir}/${project.name}/src/main/cpp/lib/PixEngine_core/src/core/headers") {
-        include "*.h"
         include "*.hpp"
         into "core"
-
+    }
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/PixEngine_core/src/core/headers") {
+        include "*.h"
+        into "core"
     }
     from ("${project.rootDir}/${project.name}/src/main/cpp/lib/PixEngine_core/src/input/headers") {
         include "*.hpp"

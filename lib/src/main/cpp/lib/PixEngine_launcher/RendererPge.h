@@ -12,7 +12,7 @@
 
 #include "PgeRunner.h"
 #include "PixEngine.hpp"
-#include "arch/android/androidlayer.h"
+#include "arch/android/androidlayer.hpp"
 #include <EGL/egl.h>
 #include "Renderer.h"
 
