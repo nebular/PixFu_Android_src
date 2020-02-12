@@ -23,7 +23,6 @@
 #if __ANDROID_API__ >= 24
 
 #include <GLES3/gl32.h>
-#include <olcPixelGameEngine.h>
 
 #elif __ANDROID_API__ >= 21
 #include <GLES3/gl31.h>

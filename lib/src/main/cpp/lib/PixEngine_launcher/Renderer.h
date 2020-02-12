@@ -12,10 +12,13 @@
 #include <string.h>
 #include <time.h>
 
-#include "olcPixelGameEngine.h"
+#include "PixEngine.hpp"
+#include "arch/android/androidlayer.h"
 
 // ----------------------------------------------------------------------------
 // Interface to the ES2 and ES3 renderers, used by JNI code.
+
+namespace rgl {
 
 class Renderer {
 
@@ -42,6 +45,8 @@ protected:
 	uint64_t mLastFrameNs;
 
 };
+
+}
 
 
 #endif //GLES3JNI_RENDERER_H

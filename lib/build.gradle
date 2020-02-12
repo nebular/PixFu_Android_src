@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
 
-ext.libName = "olcpge_android"
+ext.libName = "pixengine-android"
 ext.libVersion = "1.0.0"
 
 def platformVersion = 24      // openGLES 3.2 min api level
@@ -17,7 +17,7 @@ android {
         externalNativeBuild {
             cmake {
                 arguments '-DANDROID_STL=c++_static'
-                targets 'olcPGE_android', 'olcPGE_portable'
+                targets 'pixEngine_launcher', 'pixEngine_core'
             }
         }
     }
@@ -42,20 +42,52 @@ android {
 
 task packSoHeaders(type: Zip) {
     println 'Packing header file(s)....'
-    archiveName "olcpge_headers.zip"
+    archiveName "pixengine_headers.zip"
     destinationDir(file("${project.rootDir}/${project.name}/src/main/res/raw/"))
-    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/olcPGE_portable/src") {
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/PixEngine_core/src/core/headers") {
         include "*.h"
+        include "*.hpp"
+        into "core"
+
     }
-    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/olcPGE_portable/src/arch/android") {
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/PixEngine_core/src/input/headers") {
+        include "*.hpp"
+        into "input"
+    }
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/PixEngine_core/src/items/headers") {
+        include "*.hpp"
+        into "items"
+    }
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/PixEngine_core/src/thirdparty/glm") {
+        include "*.hpp"
+        into "glm"
+    }
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/PixEngine_core/src/thirdparty/glm/ext") {
+        include "*.hpp"
+        into "glm/ext"
+    }
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/PixEngine_core/src/thirdparty/glm/gtc") {
+        include "*.hpp"
+        into "glm/gtc"
+    }
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/PixEngine_core/src/thirdparty/glm/gtx") {
+        include "*.hpp"
+        into "glm/gtx"
+    }
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/PixEngine_core/src/thirdparty/glm/simd") {
+        include "*.hpp"
+        into "glm/simd"
+    }
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/PixEngine_core/src/arch/android") {
         include "*.h"
+        include "*.hpp"
         into "arch/android"
     }
-    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/olcPGE_portable/src/arch/android/plugins") {
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/PixEngine_core/src/arch/android/plugins") {
         include "*.h"
         into "arch/android/plugins"
     }
-    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/olcPGE_portable/src/arch/android/libpng/jni") {
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/PixEngine_core/src/arch/android/libpng/jni") {
         include "*.h"
         into "arch/android/libpng"
     }
@@ -67,7 +99,7 @@ task copyAAR(type: Copy) {
     include(project.name + '-debug.aar')
     rename (project.name + "-debug.aar", "${libName}.aar")
 //  include(project.name + '-release.aar')
-//  rename (project.name + "-release.aar", "${libName}-${libVersion}-release.aar")
+//  rename (project.name + "-release.aar", "${libName}-${libVersion}-release.ad ")
 }
 
 task deployAAR(type: Copy) {

@@ -1,3 +1,6 @@
 [submodule "lib/src/main/cpp/lib/olcPGE_portable"]
 	path = lib/src/main/cpp/lib/olcPGE_portable
 	url = https://github.com/nebular/olcPGE_portable
+[submodule "lib/src/main/cpp/lib/PixEngine_core"]
+	path = lib/src/main/cpp/lib/PixEngine_core
+	url = https://github.com/nebular/PixEngine_core

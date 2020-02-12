@@ -14,14 +14,14 @@
 #include <cstdlib>
 #include <cstring>
 #include <ctime>
-#include "olcPixelGameEngine.h"
+#include "PixEngine.hpp"
 #include "PgeRunner.h"
 #include "RendererPge.h"
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-parameter"
 
-static Renderer *g_renderer = nullptr;
+static rgl::Renderer *g_renderer = nullptr;
 
 
 // these functions are called from Java, hence the exotic decorations
@@ -67,7 +67,7 @@ Java_tv_nebular_olcpge_android_pgerunner_PgeNativeLib_init(JNIEnv *env, jclass o
 		 * copied here by the Java part.
 		 */
 
-		olc::PixelGameEngine::ROOTPATH = std::string(cstr) + "/";
+		rgl::PixEnginePlatform::setPath(std::string(cstr) + "/");
 
 		/*
 		 * Creates the Pge Renderer. It is there where we will instantiate the PGE, and
@@ -77,12 +77,12 @@ Java_tv_nebular_olcpge_android_pgerunner_PgeNativeLib_init(JNIEnv *env, jclass o
 		const char *versionStr = (const char *) glGetString(GL_VERSION);
 		if ((strstr(versionStr, "OpenGL ES 3.") && gl3stubInit()) ||
 			strstr(versionStr, "OpenGL ES 2.")) {
-			g_renderer = RendererPge::createRender(olc::PixelGameEngine::BOOTINSTANCE);
+			g_renderer = rgl::RendererPge::createRender(rgl::PixEngineAndroid::BOOTINSTANCE);
 		} else {
 			ALOGE("Unsupported OpenGL ES version");
 		}
 	} else {
-		g_renderer->onLifeCycle(Renderer::ONSURFACECREATED);
+		g_renderer->onLifeCycle(rgl::Renderer::ONSURFACECREATED);
 	}
 }
 
@@ -118,7 +118,7 @@ Java_tv_nebular_olcpge_android_pgerunner_PgeNativeLib_step(JNIEnv *env, jclass o
 extern "C" JNIEXPORT void JNICALL
 Java_tv_nebular_olcpge_android_pgerunner_PgeNativeLib_onPause(JNIEnv *env, jclass obj, jboolean status) {
 	if (g_renderer) {
-		g_renderer->onLifeCycle(status ? Renderer::ONPAUSE : Renderer::ONRESUME);
+		g_renderer->onLifeCycle(status ? rgl::Renderer::ONPAUSE : rgl::Renderer::ONRESUME);
 	}
 }
 
@@ -152,7 +152,7 @@ Java_tv_nebular_olcpge_android_pgerunner_PgeNativeLib_onTouch(JNIEnv *jenv, jcla
 		y1 = jenv->CallFloatMethod(motionEvent, getYMethodId, 1);
 	}
 
-	MotionEvent_t inputEvent;
+	rgl::MotionEvent_t inputEvent;
 	inputEvent.PointersCount = pointersCount;
 	inputEvent.Action = action;
 	inputEvent.RawAction = decodedAction;

@@ -34,8 +34,8 @@ endif (${ANDROID_PLATFORM_LEVEL} LESS 12)
 add_subdirectory(lib)
 
 # Make olcpixelengine headers visible to your program
-include_directories(lib/olcPGE_portable/src)
-include_directories(lib/olcPGE_portable/src/arch/android)
+include_directories(lib/PixEngine_core/src)
+include_directories(lib/PixEngine_core/src/core/headers)
 
 # Add your application source code
 include_directories(${CMAKE_SOURCE_DIR})
