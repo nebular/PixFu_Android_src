@@ -1,5 +1,4 @@
 /*
- *
  * Generic Android Native OpenGL Application Launcher
  * Author: Rodolfo Lopez Pintor 2020.
  *
