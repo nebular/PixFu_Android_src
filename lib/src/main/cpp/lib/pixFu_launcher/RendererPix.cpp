@@ -21,7 +21,7 @@
 
 #include <EGL/egl.h>
 #include "RendererPix.h"
-#include "PixEngine.hpp"
+#include "PixFu.hpp"
 #include "Utils.hpp"
 #include "arch/android/androidlayer.hpp"
 
@@ -29,7 +29,7 @@ namespace rgl {
 
 	const std::string RendererPix::TAG = "RendererPix";
 
-	RendererPix::RendererPix(rgl::PixEngine *engine)
+	RendererPix::RendererPix(rgl::PixFu *engine)
 			: mEglContext(eglGetCurrentContext()),
 			  pEngine(engine) {
 	}
@@ -42,7 +42,7 @@ namespace rgl {
 		}
 	}
 
-	RendererPix *RendererPix::createRender(rgl::PixEngine *engine) {
+	RendererPix *RendererPix::createRender(rgl::PixFu *engine) {
 		return new RendererPix(engine);
 	}
 

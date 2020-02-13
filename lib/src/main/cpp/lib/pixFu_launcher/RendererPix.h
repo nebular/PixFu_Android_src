@@ -3,7 +3,7 @@
 
 /*
  *
- * A renderer for PixEngine Game Engine
+ * A renderer for PixFu Game Engine
  * Author: Rodolfo Lopez Pintor, 2020
  *
  * This is just-for-fun, open source code, licensed under Creative Commons CC-BY 4.0.
@@ -11,7 +11,7 @@
  */
 
 #include "Launcher.h"
-#include "PixEngine.hpp"
+#include "PixFu.hpp"
 #include "arch/android/androidlayer.hpp"
 #include <EGL/egl.h>
 #include "Renderer.h"
@@ -24,7 +24,7 @@ namespace rgl {
 
 	public:
 
-		RendererPix(rgl::PixEngine *engine);
+		RendererPix(rgl::PixFu *engine);
 
 		virtual ~RendererPix();
 
@@ -32,7 +32,7 @@ namespace rgl {
 
 		void onMotionEvent(MotionEvent_t event);
 
-		static RendererPix *createRender(rgl::PixEngine *engine);
+		static RendererPix *createRender(rgl::PixFu *engine);
 
 	protected:
 
@@ -44,7 +44,7 @@ namespace rgl {
 		float mCounter = 0;
 		EGLContext mEglContext;
 
-		rgl::PixEngine *pEngine = nullptr;
+		rgl::PixFu *pEngine = nullptr;
 
 		void onLifeCycle(LCycle_t status);
 	};

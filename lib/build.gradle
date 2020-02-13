@@ -1,8 +1,8 @@
 apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
 
-ext.libName = "pixFu-android"
-ext.libVersion = "1.0.0"
+ext.libName = "pixFu_android"
+ext.libVersion = "1.0.1"
 
 def platformVersion = 24      // openGLES 3.2 min api level
 // def platformVersion = 18    //openGLES 3 min api level
@@ -41,13 +41,14 @@ android {
 // Pack header files into /res/raw
 
 task packSoHeaders(type: Zip) {
-    println 'Packing header file(s)....'
-    archiveName "pixengine_headers.zip"
+    println 'Packing header files ....'
+    archiveName "pixfu_headers.zip"
     destinationDir(file("${project.rootDir}/${project.name}/src/main/res/raw/"))
     from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu/src/core/headers") {
         include "*.hpp"
         into "core"
     }
+
     from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu/src/core/headers") {
         include "*.h"
         into "core"
@@ -106,7 +107,7 @@ task copyAAR(type: Copy) {
     include(project.name + '-debug.aar')
     rename (project.name + "-debug.aar", "${libName}.aar")
 /// include(project.name + '-release.aar')
-//  rename (project.name + "-release.aar", "${libName}-${libVersion}-release.ad ")
+///  rename (project.name + "-release.aar", "${libName}-${libVersion}-release.ad ")
 }
 
 task deployAAR(type: Copy) {

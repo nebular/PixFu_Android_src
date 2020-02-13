@@ -13,7 +13,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <ctime>
-#include "PixEngine.hpp"
+#include "PixFu.hpp"
 #include "Launcher.h"
 #include "RendererPix.h"
 
@@ -67,7 +67,7 @@ Java_tv_nebular_pixFu_launcher_NativeLauncher_init(JNIEnv *env, jclass obj,
 		 * copied here by the Java part.
 		 */
 
-		rgl::PixEnginePlatform::setPath(std::string(cstr) + "/");
+		rgl::PixFuPlatform::setPath(std::string(cstr) + "/");
 
 		/*
 		 * Creates the Pge Renderer. It is there where we will instantiate the PGE, and

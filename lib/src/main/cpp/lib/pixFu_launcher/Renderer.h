@@ -12,7 +12,7 @@
 #include <string.h>
 #include <time.h>
 
-#include "PixEngine.hpp"
+#include "PixFu.hpp"
 #include "arch/android/androidlayer.hpp"
 
 // ----------------------------------------------------------------------------
