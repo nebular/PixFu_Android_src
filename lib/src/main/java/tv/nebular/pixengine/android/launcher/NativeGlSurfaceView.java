@@ -8,7 +8,7 @@
  *
  */
 
-package tv.nebular.olcpge.android.pgerunner;
+package tv.nebular.pixengine.android.launcher;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -20,8 +20,6 @@ import android.view.MotionEvent;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import static tv.nebular.olcpge.android.pgerunner.PgeRunner.OLCAPPNAME;
-import static tv.nebular.olcpge.android.pgerunner.PgeRunner.SCALE;
 
 @SuppressLint("ViewConstructor")
 class NativeGlSurfaceView extends GLSurfaceView {
@@ -34,9 +32,10 @@ class NativeGlSurfaceView extends GLSurfaceView {
     int nWidth, nHeight;
 
     public NativeGlSurfaceView(Context context, float scale) {
+
         super(context);
 
-        PATH = context.getFilesDir().getAbsolutePath()+"/"+OLCAPPNAME;
+        PATH = context.getFilesDir().getAbsolutePath()+"/"+Runner.APPNAME;
 
         // Pick an EGLConfig with RGB8 color, 16-bit depth, no stencil,
         // supporting OpenGL ES 2.0 or later backwards-compatible versions.
@@ -60,14 +59,14 @@ class NativeGlSurfaceView extends GLSurfaceView {
     @Override
     public void onPause() {
         super.onPause();
-        PgeNativeLib.onPause(true);
+        NativeLauncher.onPause(true);
 
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        PgeNativeLib.onPause(false);
+        NativeLauncher.onPause(false);
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -77,18 +76,18 @@ class NativeGlSurfaceView extends GLSurfaceView {
         int action = event.getActionMasked();
         int index = event.getActionIndex();
         int pointerId = event.getPointerId(index);
-        PgeNativeLib.onTouch(event, action, pointerId, SCALE);
+        NativeLauncher.onTouch(event, action, pointerId, Runner.SCALE);
         return true;
     }
 
 
     private static class Renderer implements GLSurfaceView.Renderer {
         public void onDrawFrame(GL10 gl) {
-            PgeNativeLib.step();
+            NativeLauncher.step();
         }
-        public void onSurfaceChanged(GL10 gl, int width, int height) { PgeNativeLib.resize(width, height); }
+        public void onSurfaceChanged(GL10 gl, int width, int height) { NativeLauncher.resize(width, height); }
         public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-            PgeNativeLib.init(PATH);
+            NativeLauncher.init(PATH);
         }
     }
 

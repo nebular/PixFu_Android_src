@@ -1,6 +1,7 @@
 /**
  *
- * A renderer to interface olcPixelGameEngine
+ * A renderer for PixEngine Game Engine
+ *
  * @author Rodolfo Lopez Pintor 2020.
  * @license Creative Commons CC-BY 4.0
  *
@@ -19,35 +20,36 @@
  */
 
 #include <EGL/egl.h>
-#include "RendererPge.h"
+#include "RendererPix.h"
 #include "PixEngine.hpp"
 #include "Utils.hpp"
 #include "arch/android/androidlayer.hpp"
 
 namespace rgl {
 
-	RendererPge::RendererPge(rgl::PixEngine *engine)
+	const std::string RendererPix::TAG = "RendererPix";
+
+	RendererPix::RendererPix(rgl::PixEngine *engine)
 			: mEglContext(eglGetCurrentContext()),
 			  pEngine(engine) {
 	}
 
-	RendererPge::~RendererPge() {
-		LogV("rend", "RendererPge: Destruct");
+	RendererPix::~RendererPix() {
+		LogV(TAG, "RendererPge: Destruct");
 		if (isInited) {
 			pEngine->loop_deinit();
 			isInited = false;
 		}
 	}
 
-	RendererPge *RendererPge::createRender(rgl::PixEngine *engine) {
-		LogV("rend", SF("RendererPGE: Create %ld", engine));
-		return new RendererPge(engine);
+	RendererPix *RendererPix::createRender(rgl::PixEngine *engine) {
+		return new RendererPix(engine);
 	}
 
 
-	void RendererPge::onLifeCycle(LCycle_t status) {
+	void RendererPix::onLifeCycle(LCycle_t status) {
 
-		LogV("rend", SF("RendererPge: OLC PAUSE %d", status));
+		LogV(TAG, SF("RendererPix: Lifecycle Status %d", status));
 		// android system pause
 
 		switch (status) {
@@ -72,9 +74,9 @@ namespace rgl {
 // it is really the only place where we have guaranteed access to the GL context just created
 // and with a valid size
 
-	bool RendererPge::resize(uint32_t w, uint32_t h) {
+	bool RendererPix::resize(uint32_t w, uint32_t h) {
 
-		LogV("rend", SF("RendererPge: OLC RESIZE w %d, h %d, inited %d", w, h, isInited));
+		LogV(TAG, SF("RESIZE w %d, h %d, inited %d", w, h, isInited));
 
 		if (!isInited) {
 
@@ -101,16 +103,22 @@ namespace rgl {
 
 	}
 
-	void RendererPge::draw(float elapsedTimeNs) {
+	void RendererPix::draw(float elapsedTimeNs) {
 
 		// calls the PGE EngineThread loop that now is not on a thread. It is us here the ones
 		// in a thread !
 
-		if (isInited)
+		if (isInited) {
 			pEngine->loop_tick(elapsedTimeNs);
+			mCounter += elapsedTimeNs;
+			if (mCounter > 1000) {
+				pEngine->pPlatform->onFps((int) (1 / elapsedTimeNs));
+				mCounter -= 1000;
+			}
+		}
 	}
 
-	void RendererPge::onMotionEvent(rgl::MotionEvent_t event) {
+	void RendererPix::onMotionEvent(rgl::MotionEvent_t event) {
 
 		// MotionEvent supplied here by the Java part, then we send it down to the engine. It will be
 		// translated into GetMouse positions.

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="tv.nebular.olcpge.android.pgerunner">
+          package="tv.nebular.pixengine.android.launcher">
   <uses-feature android:glEsVersion="0x00030000"/>
   <application>
-    <activity android:name="tv.nebular.olcpge.android.pgerunner.PgeRunner"
+    <activity android:name="tv.nebular.pixengine.android.launcher.Runner"
               android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
               android:launchMode="singleTask"
               android:screenOrientation="landscape"

@@ -3,14 +3,14 @@
 
 /*
  *
- * A renderer to interface olcPixelGameEngine
+ * A renderer for PixEngine Game Engine
  * Author: Rodolfo Lopez Pintor, 2020
  *
  * This is just-for-fun, open source code, licensed under Creative Commons CC-BY 4.0.
  *
  */
 
-#include "PgeRunner.h"
+#include "Launcher.h"
 #include "PixEngine.hpp"
 #include "arch/android/androidlayer.hpp"
 #include <EGL/egl.h>
@@ -18,19 +18,21 @@
 
 namespace rgl {
 
-	class RendererPge : public Renderer {
+	class RendererPix : public Renderer {
+
+		static const std::string TAG;
 
 	public:
 
-		RendererPge(rgl::PixEngine *engine);
+		RendererPix(rgl::PixEngine *engine);
 
-		virtual ~RendererPge();
+		virtual ~RendererPix();
 
 		bool resize(uint32_t w, uint32_t h);
 
 		void onMotionEvent(MotionEvent_t event);
 
-		static RendererPge *createRender(rgl::PixEngine *engine);
+		static RendererPix *createRender(rgl::PixEngine *engine);
 
 	protected:
 
@@ -39,6 +41,7 @@ namespace rgl {
 	private:
 
 		bool isInited = false;
+		float mCounter = 0;
 		EGLContext mEglContext;
 
 		rgl::PixEngine *pEngine = nullptr;

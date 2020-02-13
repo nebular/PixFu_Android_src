@@ -8,16 +8,16 @@
  *
  */
 
-package tv.nebular.olcpge.android.pgerunner;
+package tv.nebular.pixengine.android.launcher;
 
 // Wrapper for native library
 
 import android.view.MotionEvent;
 
-public class PgeNativeLib {
+public class NativeLauncher {
 
      static {
-          System.loadLibrary("olcapp");
+          System.loadLibrary("pixapp");
      }
 
      public static native void init(String internalFilesPath);

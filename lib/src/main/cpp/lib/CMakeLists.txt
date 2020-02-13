@@ -20,9 +20,9 @@ include_directories(PixEngine_core/src/arch/android/libpng/jni)
 
 add_library(pixEngine_launcher SHARED
         ${GL3STUB_SRC}
-        PixEngine_launcher/PgeRunner.cpp
+        PixEngine_launcher/Launcher.cpp
         PixEngine_launcher/Renderer.cpp
-        PixEngine_launcher/RendererPge.cpp
+        PixEngine_launcher/RendererPix.cpp
         )
 
 target_link_libraries(pixEngine_launcher

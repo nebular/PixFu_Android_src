@@ -1,24 +1,20 @@
 /**
  *
- * A generic render. Mind that up to know, all the stack doesn't know the PGE, so it is abstraact to be used
- * as a genric android native application launcher. Is by extending this class how we will tie the renderer
- * to a PGE instance.
+ * A generic render. Is by extending this class how we will tie the renderer
+ * to a PIX instance.
  *
  * @author Rodolfo Lopez Pintor 2020.
  * @license Creative Commons CC-BY 4.0
  *
  */
 
-
 #include "Renderer.h"
-#include "PgeRunner.h"
+#include "Launcher.h"
+#include "Utils.hpp"
 
 namespace rgl {
 
-
-	Renderer::Renderer()
-			: mLastFrameNs(0) {
-	}
+	Renderer::Renderer() : mLastFrameNs(0) {}
 
 	Renderer::~Renderer() {}
 
@@ -32,7 +28,7 @@ namespace rgl {
 	bool Renderer::resize(uint32_t w, uint32_t h) {
 
 		mLastFrameNs = 0;
-		ALOGV("Renderer Base RESIZE w %d, h %d", w, h);
+		LogV("Renderer", SF("Renderer Base RESIZE w %d, h %d", w, h));
 
 		//	glViewport(0, 0, w, h);
 		// test again, 99% sure this is not needed here.

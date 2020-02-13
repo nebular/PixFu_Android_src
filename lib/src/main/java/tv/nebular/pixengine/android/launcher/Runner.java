@@ -1,6 +1,7 @@
 /**
  *
  * Generic Android OpenGL Native Application Launcher
+ *
  * @author Rodolfo Lopez Pintor 2020.
  * @license Creative Commons CC-BY 4.0
  *
@@ -19,7 +20,7 @@
  *
  */
 
-package tv.nebular.olcpge.android.pgerunner;
+package tv.nebular.pixengine.android.launcher;
 
 import android.app.Activity;
 import android.content.res.AssetManager;
@@ -37,10 +38,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class PgeRunner extends Activity {
+public class Runner extends Activity {
 
-	public final static String OLCAPPNAME = "pge";
-	public  static float SCALE;
+	public final static String APPNAME = "pix";
+	public static float SCALE;
+
+	private final static String TAG = "Runner";
 
 	NativeGlSurfaceView mView;
 
@@ -48,7 +51,7 @@ public class PgeRunner extends Activity {
 	 * Concenience constructor for DP resoution
 	 */
 
-	public PgeRunner() {
+	public Runner() {
 		this(NativeGlSurfaceView.SCALE_DP);
 	}
 
@@ -56,10 +59,9 @@ public class PgeRunner extends Activity {
 	 * Creates a PgeRunner Activity with a custom resolution.
 	 *
 	 * @param densityPixelSize The PGS Resolution. 1 = native phone resolution, 0 = dp logical resolution or custom
-	 *
 	 */
 
-	public PgeRunner(float densityPixelSize) {
+	public Runner(float densityPixelSize) {
 		SCALE = densityPixelSize;
 	}
 
@@ -71,7 +73,13 @@ public class PgeRunner extends Activity {
 
 		ProgressBar p = new ProgressBar(this);
 		p.setIndeterminate(true);
-		addContentView(p, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER));
+		addContentView(p,
+				new FrameLayout.LayoutParams(
+						ViewGroup.LayoutParams.WRAP_CONTENT,
+						ViewGroup.LayoutParams.WRAP_CONTENT,
+						Gravity.CENTER
+				)
+		);
 
 
 		if (SCALE == 0) {
@@ -83,7 +91,7 @@ public class PgeRunner extends Activity {
 		recursiveCopyAssets(new Runnable() {
 			@Override
 			public void run() {
-				mView = new NativeGlSurfaceView(PgeRunner.this, SCALE);
+				mView = new NativeGlSurfaceView(Runner.this, SCALE);
 				setContentView(mView);
 				mView.onResume();
 			}
@@ -105,6 +113,7 @@ public class PgeRunner extends Activity {
 
 	/**
 	 * Copies all assets into the internal storge
+	 *
 	 * @param finished Runnable to execute when finished (in the UI thread)
 	 */
 
@@ -112,14 +121,15 @@ public class PgeRunner extends Activity {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				copyFileOrDir(new File(PgeRunner.this.getFilesDir(), "pge"), "");
-				PgeRunner.this.runOnUiThread(finished);
+				copyFileOrDir(new File(Runner.this.getFilesDir(), Runner.APPNAME), "");
+				Runner.this.runOnUiThread(finished);
 			}
 		}).start();
 	}
 
 
 	public void copyFileOrDir(File outdir, String path) {
+
 		AssetManager assetManager = this.getAssets();
 		String[] assets;
 		outdir.mkdirs();
@@ -139,13 +149,14 @@ public class PgeRunner extends Activity {
 					if (!dir.exists() && !dir.mkdir())
 						throw new IOException("Cannot write to storage");
 				}
-				for (int i = 0; i < assets.length; ++i) {
-					copyFileOrDir(outdir, (path.length() > 0 ? path+"/": "") + assets[i]);
+
+				for (String asset : assets) {
+					copyFileOrDir(outdir, (path.length() > 0 ? path + "/" : "") + asset);
 				}
 
 			}
 		} catch (IOException ex) {
-			Log.e("tag", "I/O Exception", ex);
+			Log.e(TAG, "I/O Exception", ex);
 		}
 	}
 
@@ -156,6 +167,7 @@ public class PgeRunner extends Activity {
 		InputStream in;
 		OutputStream out;
 		try {
+			Log.v(TAG, "Copy " + filename + " to " + outDir.getAbsolutePath());
 			in = assetManager.open(filename);
 			out = new FileOutputStream(new File(outDir, filename));
 
@@ -168,7 +180,7 @@ public class PgeRunner extends Activity {
 			out.flush();
 			out.close();
 		} catch (Exception e) {
-			Log.e("tag", "error: " + e.getMessage());
+			Log.e(TAG, "error: " + e.getMessage());
 		}
 
 	}

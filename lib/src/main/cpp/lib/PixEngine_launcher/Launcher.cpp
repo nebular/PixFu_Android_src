@@ -1,6 +1,6 @@
 /*
  *
- * Generic Android OpenGL Native Application Launcher
+ * Generic Android Native OpenGL Application Launcher
  * Author: Rodolfo Lopez Pintor 2020.
  *
  * License: Creative Commons CC-BY 4.0
@@ -15,8 +15,8 @@
 #include <cstring>
 #include <ctime>
 #include "PixEngine.hpp"
-#include "PgeRunner.h"
-#include "RendererPge.h"
+#include "Launcher.h"
+#include "RendererPix.h"
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-parameter"
@@ -28,14 +28,15 @@ static rgl::Renderer *g_renderer = nullptr;
 extern "C" {
 
 JNIEXPORT void JNICALL
-Java_tv_nebular_olcpge_android_pgerunner_PgeNativeLib_init(JNIEnv *env, jclass obj, jstring path);
+Java_tv_nebular_pixengine_android_launcher_NativeLauncher_init(JNIEnv *env, jclass obj, jstring path);
 
 JNIEXPORT void JNICALL
-Java_tv_nebular_olcpge_android_pgerunner_PgeNativeLib_resize(JNIEnv *env, jclass obj, jint width,
-															 jint height);
+Java_tv_nebular_pixengine_android_launcher_NativeLauncher_resize(JNIEnv *env, jclass obj, jint width,
+														   jint height);
 JNIEXPORT void JNICALL
-Java_tv_nebular_olcpge_android_pgerunner_PgeNativeLib_onTouch(JNIEnv *env, jclass obj,
-															  jobject motionEvent,  jint decodedAction, jint pointerId, jfloat screenDensity);
+Java_tv_nebular_pixengine_android_launcher_NativeLauncher_onTouch(JNIEnv *env, jclass obj,
+															jobject motionEvent, jint decodedAction,
+															jint pointerId, jfloat screenDensity);
 };
 
 #if !defined(DYNAMIC_ES3)
@@ -54,8 +55,8 @@ static GLboolean gl3stubInit() {
  */
 
 extern "C" JNIEXPORT void JNICALL
-Java_tv_nebular_olcpge_android_pgerunner_PgeNativeLib_init(JNIEnv *env, jclass obj,
-														   jstring internalFilesPath) {
+Java_tv_nebular_pixengine_android_launcher_NativeLauncher_init(JNIEnv *env, jclass obj,
+														 jstring internalFilesPath) {
 
 	if (g_renderer == nullptr) {
 
@@ -77,7 +78,7 @@ Java_tv_nebular_olcpge_android_pgerunner_PgeNativeLib_init(JNIEnv *env, jclass o
 		const char *versionStr = (const char *) glGetString(GL_VERSION);
 		if ((strstr(versionStr, "OpenGL ES 3.") && gl3stubInit()) ||
 			strstr(versionStr, "OpenGL ES 2.")) {
-			g_renderer = rgl::RendererPge::createRender(rgl::PixEngineAndroid::BOOTINSTANCE);
+			g_renderer = rgl::RendererPix::createRender(rgl::PixEngineAndroid::BOOTINSTANCE);
 		} else {
 			ALOGE("Unsupported OpenGL ES version");
 		}
@@ -97,8 +98,8 @@ Java_tv_nebular_olcpge_android_pgerunner_PgeNativeLib_init(JNIEnv *env, jclass o
  */
 
 extern "C" JNIEXPORT void JNICALL
-Java_tv_nebular_olcpge_android_pgerunner_PgeNativeLib_resize(JNIEnv *env, jclass obj, jint width,
-															 jint height) {
+Java_tv_nebular_pixengine_android_launcher_NativeLauncher_resize(JNIEnv *env, jclass obj, jint width,
+														   jint height) {
 	if (g_renderer) {
 		g_renderer->resize((unsigned) width, (unsigned) height);
 	}
@@ -109,14 +110,15 @@ Java_tv_nebular_olcpge_android_pgerunner_PgeNativeLib_resize(JNIEnv *env, jclass
  */
 
 extern "C" JNIEXPORT void JNICALL
-Java_tv_nebular_olcpge_android_pgerunner_PgeNativeLib_step(JNIEnv *env, jclass obj) {
+Java_tv_nebular_pixengine_android_launcher_NativeLauncher_step(JNIEnv *env, jclass obj) {
 	if (g_renderer) {
 		g_renderer->render();
 	}
 }
 
 extern "C" JNIEXPORT void JNICALL
-Java_tv_nebular_olcpge_android_pgerunner_PgeNativeLib_onPause(JNIEnv *env, jclass obj, jboolean status) {
+Java_tv_nebular_pixengine_android_launcher_NativeLauncher_onPause(JNIEnv *env, jclass obj,
+															jboolean status) {
 	if (g_renderer) {
 		g_renderer->onLifeCycle(status ? rgl::Renderer::ONPAUSE : rgl::Renderer::ONRESUME);
 	}
@@ -128,8 +130,9 @@ Java_tv_nebular_olcpge_android_pgerunner_PgeNativeLib_onPause(JNIEnv *env, jclas
  */
 
 extern "C" JNIEXPORT void JNICALL
-Java_tv_nebular_olcpge_android_pgerunner_PgeNativeLib_onTouch(JNIEnv *jenv, jclass obj,
-															  jobject motionEvent,  jint decodedAction, jint pointerId, jfloat screenDensity) {
+Java_tv_nebular_pixengine_android_launcher_NativeLauncher_onTouch(JNIEnv *jenv, jclass obj,
+															jobject motionEvent, jint decodedAction,
+															jint pointerId, jfloat screenDensity) {
 
 	jclass motionEventClass = jenv->GetObjectClass(motionEvent);
 
