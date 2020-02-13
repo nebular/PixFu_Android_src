@@ -27,13 +27,13 @@ static rgl::Renderer *g_renderer = nullptr;
 extern "C" {
 
 JNIEXPORT void JNICALL
-Java_tv_nebular_pixengine_android_launcher_NativeLauncher_init(JNIEnv *env, jclass obj, jstring path);
+Java_tv_nebular_pixFu_launcher_NativeLauncher_init(JNIEnv *env, jclass obj, jstring path);
 
 JNIEXPORT void JNICALL
-Java_tv_nebular_pixengine_android_launcher_NativeLauncher_resize(JNIEnv *env, jclass obj, jint width,
+Java_tv_nebular_pixFu_launcher_NativeLauncher_resize(JNIEnv *env, jclass obj, jint width,
 														   jint height);
 JNIEXPORT void JNICALL
-Java_tv_nebular_pixengine_android_launcher_NativeLauncher_onTouch(JNIEnv *env, jclass obj,
+Java_tv_nebular_pixFu_launcher_NativeLauncher_onTouch(JNIEnv *env, jclass obj,
 															jobject motionEvent, jint decodedAction,
 															jint pointerId, jfloat screenDensity);
 };
@@ -54,7 +54,7 @@ static GLboolean gl3stubInit() {
  */
 
 extern "C" JNIEXPORT void JNICALL
-Java_tv_nebular_pixengine_android_launcher_NativeLauncher_init(JNIEnv *env, jclass obj,
+Java_tv_nebular_pixFu_launcher_NativeLauncher_init(JNIEnv *env, jclass obj,
 														 jstring internalFilesPath) {
 
 	if (g_renderer == nullptr) {
@@ -97,7 +97,7 @@ Java_tv_nebular_pixengine_android_launcher_NativeLauncher_init(JNIEnv *env, jcla
  */
 
 extern "C" JNIEXPORT void JNICALL
-Java_tv_nebular_pixengine_android_launcher_NativeLauncher_resize(JNIEnv *env, jclass obj, jint width,
+Java_tv_nebular_pixFu_launcher_NativeLauncher_resize(JNIEnv *env, jclass obj, jint width,
 														   jint height) {
 	if (g_renderer) {
 		g_renderer->resize((unsigned) width, (unsigned) height);
@@ -109,14 +109,14 @@ Java_tv_nebular_pixengine_android_launcher_NativeLauncher_resize(JNIEnv *env, jc
  */
 
 extern "C" JNIEXPORT void JNICALL
-Java_tv_nebular_pixengine_android_launcher_NativeLauncher_step(JNIEnv *env, jclass obj) {
+Java_tv_nebular_pixFu_launcher_NativeLauncher_step(JNIEnv *env, jclass obj) {
 	if (g_renderer) {
 		g_renderer->render();
 	}
 }
 
 extern "C" JNIEXPORT void JNICALL
-Java_tv_nebular_pixengine_android_launcher_NativeLauncher_onPause(JNIEnv *env, jclass obj,
+Java_tv_nebular_pixFu_launcher_NativeLauncher_onPause(JNIEnv *env, jclass obj,
 															jboolean status) {
 	if (g_renderer) {
 		g_renderer->onLifeCycle(status ? rgl::Renderer::ONPAUSE : rgl::Renderer::ONRESUME);
@@ -129,7 +129,7 @@ Java_tv_nebular_pixengine_android_launcher_NativeLauncher_onPause(JNIEnv *env, j
  */
 
 extern "C" JNIEXPORT void JNICALL
-Java_tv_nebular_pixengine_android_launcher_NativeLauncher_onTouch(JNIEnv *jenv, jclass obj,
+Java_tv_nebular_pixFu_launcher_NativeLauncher_onTouch(JNIEnv *jenv, jclass obj,
 															jobject motionEvent, jint decodedAction,
 															jint pointerId, jfloat screenDensity) {
 

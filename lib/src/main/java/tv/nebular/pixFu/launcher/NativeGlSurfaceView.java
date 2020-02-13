@@ -9,7 +9,7 @@
  *
  */
 
-package tv.nebular.pixengine.android.launcher;
+package tv.nebular.pixFu.launcher;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

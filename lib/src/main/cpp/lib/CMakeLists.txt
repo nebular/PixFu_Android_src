@@ -8,26 +8,26 @@ cmake_minimum_required(VERSION 3.4.1)
 # The olcPGE itself is a separate GitHub & CMAKE project. Is is cloned as a submodule
 # in this subdir, and includes its own CMAKE ! This will create olcPGE_portable.so.
 
-add_subdirectory(PixEngine_core)
+add_subdirectory(pixFu)
 
-include_directories(PixEngine_core/src)
-include_directories(PixEngine_core/src/core/headers)
-include_directories(PixEngine_core/src/items/headers)
-include_directories(PixEngine_core/src/input/headers)
-include_directories(PixEngine_core/src/arch/android/libpng/jni)
+include_directories(pixFu/src)
+include_directories(pixFu/src/core/headers)
+include_directories(pixFu/src/items/headers)
+include_directories(pixFu/src/input/headers)
+include_directories(pixFu/src/arch/android/libpng/jni)
 
 #  Our second SO library is the launcher native part, that we link with the PGE
 
-add_library(pixEngine_launcher SHARED
+add_library(pixFu_launcher SHARED
         ${GL3STUB_SRC}
-        PixEngine_launcher/Launcher.cpp
-        PixEngine_launcher/Renderer.cpp
-        PixEngine_launcher/RendererPix.cpp
+        PixFu_launcher/Launcher.cpp
+        PixFu_launcher/Renderer.cpp
+        PixFu_launcher/RendererPix.cpp
         )
 
-target_link_libraries(pixEngine_launcher
+target_link_libraries(pixFu_launcher
         PUBLIC
-        pixEngine_core
+        pixFu
         )
 
 #

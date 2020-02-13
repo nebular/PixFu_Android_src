@@ -7,7 +7,7 @@
  * These are the native hooks that connect with the C++ side of PgeRunner
  */
 
-package tv.nebular.pixengine.android.launcher;
+package tv.nebular.pixFu.launcher;
 
 // Wrapper for native library
 

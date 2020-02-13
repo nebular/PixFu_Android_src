@@ -19,7 +19,7 @@
  *
  */
 
-package tv.nebular.pixengine.android.launcher;
+package tv.nebular.pixFu.launcher;
 
 import android.app.Activity;
 import android.content.res.AssetManager;

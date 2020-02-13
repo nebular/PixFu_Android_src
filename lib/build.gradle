@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
 
-ext.libName = "pixengine-android"
+ext.libName = "pixFu-android"
 ext.libVersion = "1.0.0"
 
 def platformVersion = 24      // openGLES 3.2 min api level
@@ -17,7 +17,7 @@ android {
         externalNativeBuild {
             cmake {
                 arguments '-DANDROID_STL=c++_static'
-                targets 'pixEngine_launcher', 'pixEngine_core'
+                targets 'pixFu', 'pixFu_launcher'
             }
         }
     }
@@ -44,57 +44,57 @@ task packSoHeaders(type: Zip) {
     println 'Packing header file(s)....'
     archiveName "pixengine_headers.zip"
     destinationDir(file("${project.rootDir}/${project.name}/src/main/res/raw/"))
-    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/PixEngine_core/src/core/headers") {
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu/src/core/headers") {
         include "*.hpp"
         into "core"
     }
-    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/PixEngine_core/src/core/headers") {
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu/src/core/headers") {
         include "*.h"
         into "core"
     }
-    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/PixEngine_core/src/input/headers") {
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu/src/input/headers") {
         include "*.hpp"
         into "input"
     }
-    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/PixEngine_core/src/items/headers") {
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu/src/items/headers") {
         include "*.hpp"
         into "items"
     }
-    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/PixEngine_core/src/thirdparty/glm") {
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu/src/thirdparty/glm") {
         include "*.hpp"
         into "glm"
     }
-    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/PixEngine_core/src/thirdparty/glm/ext") {
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu/src/thirdparty/glm/ext") {
         include "*.hpp"
         into "glm/ext"
     }
-    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/PixEngine_core/src/thirdparty/glm/gtc") {
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu/src/thirdparty/glm/gtc") {
         include "*.hpp"
         into "glm/gtc"
     }
-    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/PixEngine_core/src/thirdparty/glm/gtx") {
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu/src/thirdparty/glm/gtx") {
         include "*.hpp"
         into "glm/gtx"
     }
-    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/PixEngine_core/src/thirdparty/glm/simd") {
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu/src/thirdparty/glm/simd") {
         include "*.hpp"
         into "glm/simd"
     }
-    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/PixEngine_core/src/arch/android") {
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu/src/arch/android") {
         include "*.h"
         include "*.hpp"
         into "arch/android"
     }
-    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/PixEngine_core/src/arch/android/plugins") {
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu/src/arch/android/plugins") {
         include "*.h"
         into "arch/android/plugins"
     }
-    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/PixEngine_core/src/arch/android/input") {
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu/src/arch/android/input") {
         include "*.hpp"
         into "input"
     }
 
-    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/PixEngine_core/src/arch/android/libpng/jni") {
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu/src/arch/android/libpng/jni") {
         include "*.h"
         into "arch/android/libpng"
     }
@@ -105,7 +105,7 @@ task copyAAR(type: Copy) {
     into("${project.rootDir}/releases")
     include(project.name + '-debug.aar')
     rename (project.name + "-debug.aar", "${libName}.aar")
-///  include(project.name + '-release.aar')
+/// include(project.name + '-release.aar')
 //  rename (project.name + "-release.aar", "${libName}-${libVersion}-release.ad ")
 }
 
@@ -119,4 +119,5 @@ task deployAAR(type: Copy) {
 }
 
 preBuild.dependsOn packSoHeaders
+
 // copyAAR.dependsOn assembleDebug
