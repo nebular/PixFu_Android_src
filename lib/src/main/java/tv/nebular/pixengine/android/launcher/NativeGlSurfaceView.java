@@ -1,5 +1,6 @@
-/**
+/*
  * Generic Android OpenGL Native Application Launcher
+ *
  * @author Rodolfo Lopez Pintor 2020.
  * @license Creative Commons CC-BY 4.0
  *
@@ -21,74 +22,77 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 
+@SuppressWarnings("unused")
 @SuppressLint("ViewConstructor")
 class NativeGlSurfaceView extends GLSurfaceView {
 
-    public static float SCALE_NATIVE = 1;       // native resolution (full res)
-    public static float SCALE_DP = 0;           // dp resolution using system density
+	public static float SCALE_NATIVE = 1;       // native resolution (full res)
+	public static float SCALE_DP = 0;           // dp resolution using system density
 
-    private static String PATH = null;
+	private static String PATH = null;
 
-    int nWidth, nHeight;
+	int nWidth, nHeight;
 
-    public NativeGlSurfaceView(Context context, float scale) {
+	public NativeGlSurfaceView(Context context, float scale) {
 
-        super(context);
+		super(context);
 
-        PATH = context.getFilesDir().getAbsolutePath()+"/"+Runner.APPNAME;
+		PATH = context.getFilesDir().getAbsolutePath() + "/" + Runner.APPNAME;
 
-        // Pick an EGLConfig with RGB8 color, 16-bit depth, no stencil,
-        // supporting OpenGL ES 2.0 or later backwards-compatible versions.
+		// Pick an EGLConfig with RGB8 color, 16-bit depth, no stencil,
+		// supporting OpenGL ES 2.0 or later backwards-compatible versions.
 
-        setEGLConfigChooser(8, 8, 8, 0, 16, 0);
-        setEGLContextClientVersion(3);
+		setEGLConfigChooser(8, 8, 8, 0, 16, 0);
+		setEGLContextClientVersion(3);
 
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        ((Activity)context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+		DisplayMetrics displayMetrics = new DisplayMetrics();
+		((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
-        if (scale == 0) scale = displayMetrics.density;
+		if (scale == 0) scale = displayMetrics.density;
 
-        nHeight = (int) (displayMetrics.heightPixels / scale);
-        nWidth = (int) (displayMetrics.widthPixels / scale);
+		nHeight = (int) (displayMetrics.heightPixels / scale);
+		nWidth = (int) (displayMetrics.widthPixels / scale);
 
-        getHolder().setFixedSize(nWidth,nHeight);
-        setRenderer(new Renderer());
+		getHolder().setFixedSize(nWidth, nHeight);
+		setRenderer(new Renderer());
 
-    }
+	}
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        NativeLauncher.onPause(true);
+	@Override
+	public void onPause() {
+		super.onPause();
+		NativeLauncher.onPause(true);
 
-    }
+	}
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        NativeLauncher.onPause(false);
-    }
+	@Override
+	public void onResume() {
+		super.onResume();
+		NativeLauncher.onPause(false);
+	}
 
-    @SuppressLint("ClickableViewAccessibility")
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        // calculate things that are easy here and complicated in the native side
-        int action = event.getActionMasked();
-        int index = event.getActionIndex();
-        int pointerId = event.getPointerId(index);
-        NativeLauncher.onTouch(event, action, pointerId, Runner.SCALE);
-        return true;
-    }
+	@SuppressLint("ClickableViewAccessibility")
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		// calculate things that are easy here and complicated in the native side
+		int action = event.getActionMasked();
+		int index = event.getActionIndex();
+		int pointerId = event.getPointerId(index);
+		NativeLauncher.onTouch(event, action, pointerId, Runner.SCALE);
+		return true;
+	}
 
 
-    private static class Renderer implements GLSurfaceView.Renderer {
-        public void onDrawFrame(GL10 gl) {
-            NativeLauncher.step();
-        }
-        public void onSurfaceChanged(GL10 gl, int width, int height) { NativeLauncher.resize(width, height); }
-        public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-            NativeLauncher.init(PATH);
-        }
-    }
+	private static class Renderer implements GLSurfaceView.Renderer {
+		public void onDrawFrame(GL10 gl) {
+			NativeLauncher.step();
+		}
+
+		public void onSurfaceChanged(GL10 gl, int width, int height) { NativeLauncher.resize(width, height); }
+
+		public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+			NativeLauncher.init(PATH);
+		}
+	}
 
 }

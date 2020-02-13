@@ -1,4 +1,4 @@
-/**
+/*
  *
  * Generic Android OpenGL Native Application Launcher
  *
@@ -40,10 +40,10 @@ import java.io.OutputStream;
 
 public class Runner extends Activity {
 
+	private final static String TAG = "Runner";
+
 	public final static String APPNAME = "pix";
 	public static float SCALE;
-
-	private final static String TAG = "Runner";
 
 	NativeGlSurfaceView mView;
 
@@ -51,6 +51,7 @@ public class Runner extends Activity {
 	 * Concenience constructor for DP resoution
 	 */
 
+	@SuppressWarnings("unused")
 	public Runner() {
 		this(NativeGlSurfaceView.SCALE_DP);
 	}
@@ -132,6 +133,8 @@ public class Runner extends Activity {
 
 		AssetManager assetManager = this.getAssets();
 		String[] assets;
+
+		// noinspection ResultOfMethodCallIgnored
 		outdir.mkdirs();
 
 		try {
