@@ -21,6 +21,7 @@
 #include <EGL/egl.h>
 #include "RendererPge.h"
 #include "PixEngine.hpp"
+#include "Utils.hpp"
 #include "arch/android/androidlayer.hpp"
 
 namespace rgl {
@@ -31,7 +32,7 @@ namespace rgl {
 	}
 
 	RendererPge::~RendererPge() {
-		ALOGV("RendererPge: Destruct");
+		LogV("rend", "RendererPge: Destruct");
 		if (isInited) {
 			pEngine->loop_deinit();
 			isInited = false;
@@ -39,13 +40,14 @@ namespace rgl {
 	}
 
 	RendererPge *RendererPge::createRender(rgl::PixEngine *engine) {
+		LogV("rend", SF("RendererPGE: Create %ld", engine));
 		return new RendererPge(engine);
 	}
 
 
 	void RendererPge::onLifeCycle(LCycle_t status) {
 
-		// ALOGV("RendererPge: OLC PAUSE %d", status);
+		LogV("rend", SF("RendererPge: OLC PAUSE %d", status));
 		// android system pause
 
 		switch (status) {
@@ -72,7 +74,7 @@ namespace rgl {
 
 	bool RendererPge::resize(uint32_t w, uint32_t h) {
 
-		//	ALOGV("RendererPge: OLC RESIZE w %d, h %d", w, h);
+		LogV("rend", SF("RendererPge: OLC RESIZE w %d, h %d, inited %d", w, h, isInited));
 
 		if (!isInited) {
 
@@ -83,6 +85,7 @@ namespace rgl {
 			// construct the PGE class with our window size
 			if (!pEngine->init(w, h))
 				return false;
+
 
 			// calls former pge::EngineThread() first part (OpenGL init)
 			if (!pEngine->loop_init())

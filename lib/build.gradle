@@ -114,3 +114,4 @@ task deployAAR(type: Copy) {
 }
 
 preBuild.dependsOn packSoHeaders
+// copyAAR.dependsOn assembleDebug
