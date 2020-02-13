@@ -42,6 +42,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/PixEngine_core/src/input" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/PixEngine_core/src/arch/android" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/PixEngine_core/src/arch/android/plugins" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/PixEngine_core/src/arch/android/input" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/PixEngine_core/src/arch/android/libpng/jni/arm" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/PixEngine_core/src/arch/android/libpng/jni" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/ap_generated_sources/debug/out" isTestSource="false" generated="true" />

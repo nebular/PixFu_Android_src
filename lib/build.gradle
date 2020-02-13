@@ -89,6 +89,11 @@ task packSoHeaders(type: Zip) {
         include "*.h"
         into "arch/android/plugins"
     }
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/PixEngine_core/src/arch/android/input") {
+        include "*.hpp"
+        into "input"
+    }
+
     from ("${project.rootDir}/${project.name}/src/main/cpp/lib/PixEngine_core/src/arch/android/libpng/jni") {
         include "*.h"
         into "arch/android/libpng"
@@ -100,7 +105,7 @@ task copyAAR(type: Copy) {
     into("${project.rootDir}/releases")
     include(project.name + '-debug.aar')
     rename (project.name + "-debug.aar", "${libName}.aar")
-//  include(project.name + '-release.aar')
+///  include(project.name + '-release.aar')
 //  rename (project.name + "-release.aar", "${libName}-${libVersion}-release.ad ")
 }
 
