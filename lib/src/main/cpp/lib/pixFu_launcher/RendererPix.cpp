@@ -124,7 +124,7 @@ namespace rgl {
 		// translated into GetMouse positions.
 
 		if (isInited) {
-			(static_cast<PixEngineAndroid *>(pEngine->pPlatform))->inputMotionEvent(event);
+			(static_cast<PixFuPlatformAndroid *>(pEngine->pPlatform))->inputMotionEvent(event);
 		}
 	}
 

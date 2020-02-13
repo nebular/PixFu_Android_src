@@ -77,7 +77,9 @@ Java_tv_nebular_pixFu_launcher_NativeLauncher_init(JNIEnv *env, jclass obj,
 		const char *versionStr = (const char *) glGetString(GL_VERSION);
 		if ((strstr(versionStr, "OpenGL ES 3.") && gl3stubInit()) ||
 			strstr(versionStr, "OpenGL ES 2.")) {
-			g_renderer = rgl::RendererPix::createRender(rgl::PixEngineAndroid::BOOTINSTANCE);
+			rgl::PixFuPlatform *platform = rgl::PixFuPlatformAndroid::instance();
+			rgl::PixFu *engine = (dynamic_cast<rgl::PixFuPlatformAndroid *>(platform))->engine();
+			g_renderer = rgl::RendererPix::createRender(engine);
 		} else {
 			ALOGE("Unsupported OpenGL ES version");
 		}
