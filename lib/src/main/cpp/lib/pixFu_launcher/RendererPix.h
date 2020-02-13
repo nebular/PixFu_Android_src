@@ -12,7 +12,7 @@
 
 #include "Launcher.h"
 #include "PixFu.hpp"
-#include "arch/android/androidlayer.hpp"
+#include "arch/android/platform_android.hpp"
 #include <EGL/egl.h>
 #include "Renderer.h"
 

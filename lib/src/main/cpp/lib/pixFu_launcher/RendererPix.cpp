@@ -23,7 +23,7 @@
 #include "RendererPix.h"
 #include "PixFu.hpp"
 #include "Utils.hpp"
-#include "arch/android/androidlayer.hpp"
+#include "arch/android/platform_android.hpp"
 
 namespace rgl {
 
