@@ -9,6 +9,14 @@ def platformVersion = 24      // openGLES 3.2 min api level
 // def platformVersion = 12    //openGLES 2 min api level
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('/Volumes/git.root/ks/funqkeystore')
+            storePassword 'Mimi6300'
+            keyAlias = 'funq'
+            keyPassword 'Mimi6300'
+        }
+    }
     compileSdkVersion 29
 
     defaultConfig {
@@ -27,6 +35,7 @@ android {
             minifyEnabled = false
             proguardFiles getDefaultProguardFile('proguard-android.txt'),
                           'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     externalNativeBuild {
@@ -106,8 +115,12 @@ task copyAAR(type: Copy) {
     into("${project.rootDir}/releases")
     include(project.name + '-debug.aar')
     rename (project.name + "-debug.aar", "${libName}.aar")
-/// include(project.name + '-release.aar')
-///  rename (project.name + "-release.aar", "${libName}-${libVersion}-release.ad ")
+}
+task releaseAAR(type: Copy) {
+    from('build/outputs/aar')
+    into("${project.rootDir}/releases")
+    include(project.name + '-release.aar')
+    rename (project.name + "-release.aar", "${libName}.aar")
 }
 
 task deployAAR(type: Copy) {
