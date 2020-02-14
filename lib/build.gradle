@@ -62,6 +62,10 @@ task packSoHeaders(type: Zip) {
         include "*.h"
         into "core"
     }
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu/src/support") {
+        include "*.hpp"
+        into "support"
+    }
     from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu/src/input/headers") {
         include "*.hpp"
         into "input"

@@ -112,7 +112,7 @@ namespace rgl {
 			pEngine->loop_tick(elapsedTimeNs);
 			mCounter += elapsedTimeNs;
 			if (mCounter > 1000) {
-				pEngine->pPlatform->onFps((int) (1 / elapsedTimeNs));
+				pEngine->pPlatform->onFps(pEngine,(int) (1 / elapsedTimeNs));
 				mCounter -= 1000;
 			}
 		}
