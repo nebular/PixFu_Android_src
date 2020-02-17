@@ -37,6 +37,7 @@ add_subdirectory(lib)
 # Make olcpixelengine headers visible to your program
 include_directories(lib/pixFu/src)
 include_directories(lib/pixFu/src/core/headers)
+include_directories(lib/pixFu_Extensions/)
 
 # Add your application source code
 include_directories(${CMAKE_SOURCE_DIR})

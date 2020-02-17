@@ -9,6 +9,7 @@ cmake_minimum_required(VERSION 3.4.1)
 # in this subdir, and includes its own CMAKE ! This will create olcPGE_portable.so.
 
 add_subdirectory(pixFu)
+add_subdirectory(pixFu_Extensions)
 
 include_directories(pixFu/src)
 include_directories(pixFu/src/core/headers)
