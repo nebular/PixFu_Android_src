@@ -41,8 +41,8 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/pixFu_Extensions/World" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/pixFu_launcher" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/pixFu/src/core" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/pixFu/src/items" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/pixFu/src/input" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/pixFu/src/items" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/pixFu/src/support" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/pixFu/src/arch/android" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/pixFu/src/arch/android/plugins" isTestSource="false" />

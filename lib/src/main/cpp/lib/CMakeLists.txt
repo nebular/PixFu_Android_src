@@ -29,6 +29,7 @@ add_library(pixFu_launcher SHARED
 target_link_libraries(pixFu_launcher
         PUBLIC
         pixFu
+        m
         )
 
 #
