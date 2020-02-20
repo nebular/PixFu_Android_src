@@ -5,7 +5,7 @@ ext.libName = "pixFu_android"
 ext.libVersion = "1.0.1"
 
 def platformVersion = 24      // openGLES 3.2 min api level
-// def platformVersion = 18    //openGLES 3 min api levef
+// def platformVersion = 18    //openGLES 3 min api leve
 // def platformVersion = 12    //openGLES 2 min api levedl
 
 android {
@@ -94,6 +94,17 @@ task packSoHeaders(type: Zip) {
         include "*.hpp"
         into "glm/simd"
     }
+
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu_Extensions/World/headers") {
+        include "*.hpp"
+        into "ext/world"
+    }
+
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu_Extensions/Sprites/headers") {
+        include "*.hpp"
+        into "ext/sprites"
+    }
+
     from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu/src/arch/android") {
         include "*.h"
         include "*.hpp"

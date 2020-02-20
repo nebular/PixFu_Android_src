@@ -39,6 +39,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/pixFu/src/arch/android/libpng/jni/arm" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/pixFu/src/arch/android/libpng/jni" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/pixFu_Extensions/World" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/pixFu_Extensions/Sprites" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/pixFu_launcher" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/pixFu/src/core" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/pixFu/src/input" isTestSource="false" />
