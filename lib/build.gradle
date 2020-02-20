@@ -6,7 +6,7 @@ ext.libVersion = "1.0.1"
 
 def platformVersion = 24      // openGLES 3.2 min api level
 // def platformVersion = 18    //openGLES 3 min api leve
-// def platformVersion = 12    //openGLES 2 min api levedl
+// def platformVersion = 12    //openGLE S 2  min api levedl
 
 android {
     signingConfigs {
@@ -95,7 +95,11 @@ task packSoHeaders(type: Zip) {
         into "glm/simd"
     }
 
-    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu_Extensions/World/headers") {
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu_Extensions/World/core/headers") {
+        include "*.hpp"
+        into "ext/world"
+    }
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu_Extensions/World/objects/headers") {
         include "*.hpp"
         into "ext/world"
     }
