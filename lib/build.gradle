@@ -4,9 +4,9 @@ apply plugin: 'maven-publish'
 ext.libName = "pixFu_android"
 ext.libVersion = "1.0.1"
 
-def platformVersion = 24      // openGLES 3.2 min api level
-// def platformVersion = 18    //openGLES 3 min api leve
-// def platformVersion = 12    //openGLE S 2  min api levedl
+def platformVersion = 24        // openGLES 3.2 min api level
+// def platformVersion = 18     //openGLES 3 min api leve
+// def platformVersion = 12     //openGLE S 2  min api levedl
 
 android {
     signingConfigs {
@@ -47,7 +47,7 @@ android {
 
 }
 
-// Pack header file ss into /res/raw
+// Pack header file d into /res/raw
 
 task packSoHeaders(type: Zip) {
     println 'Packing header files ....'
@@ -102,7 +102,7 @@ task packSoHeaders(type: Zip) {
         include "*.hpp"
         into "ext/world"
     }
-    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu_Extensions/World/objects/headers") {
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu_Extensions/World/worlds/ballworld/headers") {
         include "*.hpp"
         into "ext/world"
     }
