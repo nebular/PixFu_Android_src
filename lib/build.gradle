@@ -57,7 +57,6 @@ task packSoHeaders(type: Zip) {
         include "*.hpp"
         into "core"
     }
-
     from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu/src/core/headers") {
         include "*.h"
         into "core"
@@ -95,6 +94,10 @@ task packSoHeaders(type: Zip) {
         into "glm/simd"
     }
 
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu_Extensions/World") {
+        include "*.hpp"
+        into "ext/world"
+    }
     from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu_Extensions/World/core/headers") {
         include "*.hpp"
         into "ext/world"
