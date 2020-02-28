@@ -47,7 +47,7 @@ android {
 
 }
 
-// Pack header file d into /res/raw
+// Pack header file df into /res/radw
 
 task packSoHeaders(type: Zip) {
     println 'Packing header files ....'
