@@ -1,105 +1,121 @@
-OLC/PixelGameEngine for Android 
-===============================
-![screenshot](doc/screen2.png)
+PixFu Template Project and Demos
+================================
 
-So it's time to bring PGE into your pocket so you can play with it anywhere.
+![screenshot](doc/img1.jpeg)
 
-This was intended to be a 5 minute test, but as I faced lots of unexpected interesting challenges getting all the pieces to work I decided to do a "self-learning" project about the deep android internals.
-I hope it is useful to you. Feel free to contribute, I would love this project to evolve. Funny thing about the PGE is, when you see it running on a phone, it just looks GORGEOUS. Beware you are going to get addicted to test every tutorial or app you have.
+What is PixFu
+=============
 
-Regarding that, I will be porting the examples into the demo project.
+PixFu is a minimalistic modular game / realtime system engine. It is 100% written in C++ and OpenGL and runs on Desktop computers and Mobile devices (Android at the moment, IOS coming next).
+
+PixFu core is based on famous engine OneLoneCoder Pixel Game Engine (http://onelonecoder.com) and has a redesigned full modular approach to allow optimizations for mobile devices and embedded platforms.
+
+ Core: OpenGL initialization, platform abstraction, android/ios launchers
+
+ Input Devices: Keyboard, Mouse, Virtual Mouse, Virtual Keyboard, Axis Controller, Gyroscope
+
+ Extensions:
+
+    - Primary Surface: provides a 2D canvas with functions to draw circles, lines, rectangles and multi-font strings. This extension is enabled by default. Source code for this extension comes from OLC PGE core. 
+    
+    - Sprites: OpenGL/powered sprites with scaling, rotation, fx and multi sprite atlas support
+
+    - World: Complete minimalistic 3D world with terrain model, height maps, lighting, camera, and 3D-model object clusters with multi-texture support, optimized for mobile devices. 
+
+Other Features:
+
+    - OLC Pixel Game Engine compatibility layer, provides a base class that mimics the PGE Engine class. You can easily port your PGE modules to PixFu! (Note- Extensions are not supported, and not all functionality is emulated)
+
+    - Includes GLM library, used internally, but also exported so it is ready to use in your project just including it. The library is compiled with FORCE_LEFT_HANDED, so angles are positive clockwise and physics behave as expected.
+    
+    - 100% modular structure allows to enable just the features you need. Even the primary UI surface is an extension that maybe you don't need to enable to get some fps!
+
+![screenshot](doc/page2.png)
+
+![screenshot](doc/page1.png)
+
+PixFu Workflow
+=============
+
+![screenshot](doc/page3.png)
 
 
-ATTENTION
----------
-This project is the source code of the Android port and support files of the OLC/Pixel Game Engine.
-If you just are interested in creating stuff for PGE without diving into the technica stuff, maybe just
-take a look to http://github.com/nebular/olcPGE_Android_demos.
+How To Start
+=============
 
-The demo template project is all you need. You only need this project if you want to modify, update or customize  the internals.
+This is a template Android Studio project that you can use to create your PixFu based applications.
 
+It includes the PixFu/Android core as an AAR, and all build scripts and CMAKE configurations ready so you just can deploy one class, hit build and play the application in your phone.
 
-Introduction
-------------
-![screenshot](doc/screen3.png)
+Please refer to the root project PixFu https://github.com/nebular/PixFu_Android for technical details.
 
-So this project has several components:
-
-1) olcPixelGameEngine-portable
-
-This is like the original olcPixelGameEngine using also parts from the OSX port. You can see the modifications at 
-http://github.com/nebular/olcPGE_portable. This fork moves arch-dependent code to separate folders
-as platforms like Mac and Android need to include files and libraries alongside the .h. 
-
- ![screenshot](doc/screen4.png)
-
-2) libpng
-
-It has to be compiled for Android.
-
-3) The launcher: An Android Activity with a GLES/3 Native Window, and Java support files to inirialize it.
-   Also takes care of unpacking the assets into the filesystem, and manages accelerometer and touch, that are injected into the PGE as Mouse and Joystick values.
-
-4) The Main Native App: The native twin of the above, connected by a JNI bridge.  The Main native 
-app implements the native OpenGL loop. It is here where we interface the PGE, for exmaple Android 
-will request an OpenGL step, that we forward to the PGE.
-
-All these four components are built as shared .so libraries
-
-5) The CMAKE and Gradle compile and build scripts. This has been the most complex part of the project, as we are releasing all this into a cool AAR
-module that you just insert into your project and all will just work.
-
-There were several inconveniences to solve, mostly derived from splitting in two projects, and the fact that Android CMAKE toolchains and library projects are still very unconnected worlds. 
-The root of the problem  is that everything is designed so a main Java app can consume CMAKE native apps AND library projects, but not that a library
-project would be used to feed a user CMAKE without any Java (exactly our case). As CMAKE runs before the library project merging, we had to find a way
-to pack what the user CMAKE needs in the AAR, and then unpack everything into the User CMAKE before the build starts. Also, to make development easier on the user side,
-we needed to unpack the collected header files and make them available automatically, so the user don't need to install any headeers or anything
-other than her CPP classes. 
-
-So thanks to countless StackOverflow tricks, these things are implemented in the CMakeLists and gradle scripts and everything should work
-out of the box. You will be able to create a PGE app as quick as @javidx9 does with Visual Studio !
-
-Tricks in the scripts:
-- The AAR is used in three different ways: as an imported AAR Library Module, as a communication channel between the user project and the precompiled root project, and as a flat repository with Java Classes.
-* User CMAKE links with so's and headers packed into, and unpacked from, the AAR
-* Headers are populated into userspace automatically
-* The "flat repository mode",  is the magic sauce that allows to declare the AAR as a compile dependency, propagating the activity launcher in the AAR to the user project automatically.
+![screenshot](doc/page4.png)
 
 Pre-requisites
 --------------
+
 - Android Studio 3.5.2+ (lower may work)
-- [NDK] (https://developer.android.com/ndk/) bundle.
+- (not sure if you also need to install the NDK, easy anyways:  [NDK] (https://developer.android.com/ndk/) bundle.
 
 Getting Started
 ---------------
 1. Clone this project
 
-`git clone https://github.com/nebular/olcPGE_Android.git
+`git clone https://github.com/nebular/PixFu_Android_demos.git
 `
 1. Open it in Android Studio
 
-1. You can modify or add stuff to the launcher Java or Native side
- 
- When you want to create the AAR, after building it, just type on the terminal, on the project root:
- 
- `./gradlew copyAAR`
- 
- and the AAR will be generated and copies into /releases/
-  
- Then in your user projects, just replace the existing AAR with this new one.
- 
- It is important that the name is the same. One file should replace the other.
- 
- Then just Play the project, don't even need to rebuild it. Gradle will detect the updated AAR and generate the updated headers.
+1. Press Play
 
-To be continued
+
+![screenshot](doc/olcemu.jpeg)
+
+Examples
+--------------------------------------
+
+- Mouse and Key events, with Virtual Mouse and Virtual Keybpard support
+
+![screenshot](doc/img2.jpeg)
+
+You can easily add virtual keys anywhere on the screen and build control clusters (look at the boxes near the top corners):
+
+`		
+
+        LoneScreenKey::currentInstance->add({olc::Key::W,    540,   0, 100, 50});
+
+		LoneScreenKey::currentInstance->add({olc::Key::A,    540,  50,  50, 50});
+		
+		LoneScreenKey::currentInstance->add({olc::Key::D,    590,  50,  50, 50});
+		
+		LoneScreenKey::currentInstance->add({olc::Key::S,    540, 100, 100, 50});
+`
+
+ 
+- gyroscope sensor data is provided as a courtesy of the Java layer. An object tCurrentSensorEvent is available in the update loop.
+
+  ![screenshot](doc/img3.png)
+
+    - At the moment the gyroscope is "always on", that consumes a lot of battery, will add methods to start and stop.
+    
+- OLC Pixel Game Engine Compatibility Layer
+
+A Base class follows OLC/PGE interface (no extensions) and allows to run examples from the popular YouTube channel.
+
+  ![screenshot](doc/olcemu.png)
+
+Start Developing
+---------------
+1. Place your application code in *app/src/main/cpp*
+1. Place your application assets in *app/src/main/assets*
+1. Instantiate your main class in the file *run.cpp*
+1. Click *Run/Run 'app'*.
+
 
 Support
 -------
+If you've found an error please [file an issue] (https://github.com/nebular/PixFu_Android/issues/new).
 
-Please [file an issue] or suggestion at (https://github.com/nebular/olcPGE_Android/issues/new).
-
-Patches are encouraged, and may be submitted by [forking this project](https://github.com/nebular/olcPGE_Android/fork) and submitting a pull request through GitHub.
+Patches are encouraged, and may be submitted by [forking this project](https://github.com/nebular/PixFu_Android/fork) and submitting a pull request through GitHub.
 
 License
 -------
