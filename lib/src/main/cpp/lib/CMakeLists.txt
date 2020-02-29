@@ -16,7 +16,7 @@ include_directories(pixFu/src/core/headers)
 include_directories(pixFu/src/items/headers)
 include_directories(pixFu/src/input/headers)
 include_directories(pixFu/src/arch/android/libpng/jni)
-include_directories(pixFu/src/thirdparty/glm)
+include_directories(pixFu/src/thirdparty)
 
 #  Our second SO library is the launcher native part, that we link with the PGE
 
