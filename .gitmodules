@@ -4,3 +4,6 @@
 [submodule "lib/src/main/cpp/lib/PixFu"]
 	path = lib/src/main/cpp/lib/PixFu
 	url = https://github.com/nebular/PixFu
+[submodule "lib/src/main/cpp/lib/PixFu_Extensions"]
+	path = lib/src/main/cpp/lib/PixFu_Extensions
+	url = https://github.com/nebular/PixFu_Extensions
