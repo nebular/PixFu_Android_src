@@ -1,9 +1,9 @@
 [submodule "lib/src/main/cpp/lib/olcPGE_portable"]
 	path = lib/src/main/cpp/lib/olcPGE_portable
 	url = https://github.com/nebular/olcPGE_portable
-[submodule "lib/src/main/cpp/lib/PixFu"]
-	path = lib/src/main/cpp/lib/PixFu
-	url = https://github.com/nebular/PixFu
 [submodule "lib/src/main/cpp/lib/PixFu_Extensions"]
 	path = lib/src/main/cpp/lib/PixFu_Extensions
 	url = https://github.com/nebular/PixFu_Extensions
+[submodule "lib/src/main/cpp/lib/PixFu"]
+	path = lib/src/main/cpp/lib/PixFu
+	url = https://github.com/nebular/PixFu
