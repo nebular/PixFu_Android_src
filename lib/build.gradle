@@ -4,7 +4,7 @@ apply plugin: 'maven-publish'
 ext.libName = "pixFu_android"
 ext.libVersion = "1.0.1"
 
-def platformVersion = 24        // openGLES 3.2 min api level
+def platformVersion = 24        // openGLES n3.2 min api level
 // def platformVersion = 18     //openGLES 3 min api leve
 // def platformVersion = 12     //openGLE S 2  min api levedl
 
@@ -25,7 +25,7 @@ android {
         externalNativeBuild {
             cmake {
                 arguments '-DANDROID_STL=c++_static'
-                targets 'pixFu', 'pixFu_launcher'
+                targets 'pixFu', 'pixFu_launcher', 'pixFu_ext'
             }
         }
     }
@@ -47,12 +47,13 @@ android {
 
 }
 
-// Pack header file df into /res/radw
+// Pack header file df into /res/raw
 
 task packSoHeaders(type: Zip) {
     println 'Packing header files ....'
     archiveName "pixfu_headers.zip"
     destinationDir(file("${project.rootDir}/${project.name}/src/main/res/raw/"))
+
     from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu/src/core/headers") {
         include "*.hpp"
         into "core"
@@ -74,28 +75,36 @@ task packSoHeaders(type: Zip) {
         into "items"
     }
     from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu/src/thirdparty/glm") {
-        include "*.hpp"
+        include "*.*"
         into "glm"
     }
     from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu/src/thirdparty/glm/ext") {
-        include "*.hpp"
+        include "*.*"
         into "glm/ext"
     }
     from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu/src/thirdparty/glm/gtc") {
-        include "*.hpp"
+        include "*.*"
         into "glm/gtc"
     }
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu/src/thirdparty/glm/detail") {
+        include "*.*"
+        into "glm/detail"
+    }
     from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu/src/thirdparty/glm/gtx") {
-        include "*.hpp"
+        include "*.*"
         into "glm/gtx"
     }
     from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu/src/thirdparty/glm/simd") {
-        include "*.hpp"
+        include "*.*"
         into "glm/simd"
     }
 
     from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu_Extensions/World") {
         include "*.hpp"
+        into "ext/world"
+    }
+    from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu_Extensions/World/geom") {
+        include "*.h"
         into "ext/world"
     }
     from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu_Extensions/World/core/headers") {
