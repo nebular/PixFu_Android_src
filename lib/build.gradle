@@ -4,7 +4,7 @@ apply plugin: 'maven-publish'
 ext.libName = "pixFu_android"
 ext.libVersion = "1.0.1"
 
-def platformVersion = 24        // openGLES n3.2 min api level
+def platformVersion = 24        // opednGLES n3.2 min api level
 // def platformVersion = 18     //openGLES 3 min api leve
 // def platformVersion = 12     //openGLE S 2  min api levedl
 
@@ -104,7 +104,7 @@ task packSoHeaders(type: Zip) {
         into "ext/world"
     }
     from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu_Extensions/World/geom") {
-        include "*.h"
+        include "*.hpp"
         into "ext/world"
     }
     from ("${project.rootDir}/${project.name}/src/main/cpp/lib/pixFu_Extensions/World/core/headers") {
