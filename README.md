@@ -1,6 +1,3 @@
-PixFu Template Project and Demos
-================================
-
 ![screenshot](doc/img1.jpeg)
 
 What is PixFu
@@ -36,6 +33,9 @@ Other Features:
 
 PixFu Workflow
 =============
+
+PixFu provides a base Engine class that you will extend to your convenience. The base class abstracts all platfom details, and automatically manages extensions and input devices. 
+Your code will be very tight without any extraneous background libraries or services !
 
 ![screenshot](doc/page3.png)
 
