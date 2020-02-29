@@ -49,8 +49,6 @@ It includes the PixFu/Android core as an AAR, and all build scripts and CMAKE co
 
 Please refer to the root project PixFu https://github.com/nebular/PixFu_Android for technical details.
 
-![screenshot](doc/page4.png)
-
 Pre-requisites
 --------------
 
@@ -68,12 +66,12 @@ Getting Started
 1. Press Play
 
 
-![screenshot](doc/olcemu.jpeg)
+![screenshot](doc/page4.png)
 
 Examples
 --------------------------------------
 
-- Mouse and Key events, with Virtual Mouse and Virtual Keybpard support
+- DemoControls: Mouse and Key events, with Virtual Mouse and Virtual Keybpard support
 
 ![screenshot](doc/img2.jpeg)
 
@@ -91,15 +89,13 @@ You can easily add virtual keys anywhere on the screen and build control cluster
 `
 
  
-- gyroscope sensor data is provided as a courtesy of the Java layer. An object tCurrentSensorEvent is available in the update loop.
+- DemoGyro: gyroscope sensor can feed the AxisController Input Device and used like a joystick.
 
   ![screenshot](doc/img3.png)
 
     - At the moment the gyroscope is "always on", that consumes a lot of battery, will add methods to start and stop.
     
-- OLC Pixel Game Engine Compatibility Layer
-
-A Base class follows OLC/PGE interface (no extensions) and allows to run examples from the popular YouTube channel.
+- Balls: Example using OLC Pixel Game Engine Compatibility Layer, that provides a base class with the same interface as the original OLC/PGE and run examples from the popular YouTube channel. Note that extensions are not supported!
 
   ![screenshot](doc/olcemu.png)
 
