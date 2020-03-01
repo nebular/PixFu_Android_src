@@ -36,19 +36,19 @@
     <output-test url="file://$MODULE_DIR$/build/intermediates/javac/debugUnitTest/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/pixFu_Extensions/World/core" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/pixFu_Extensions/World/worlds/ballworld" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/pixFu_Extensions/Sprites" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/PixFu_Extensions/World/core" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/PixFu_Extensions/World/worlds/ballworld" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/PixFu_Extensions/Sprites" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/pixFu_launcher" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/pixFu/src/arch/android/libpng/jni/arm" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/pixFu/src/arch/android/libpng/jni" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/pixFu/src/core" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/pixFu/src/input" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/pixFu/src/items" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/pixFu/src/support" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/pixFu/src/arch/android" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/pixFu/src/arch/android/plugins" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/pixFu/src/arch/android/input" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/PixFu/src/arch/android/libpng/jni/arm" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/PixFu/src/arch/android/libpng/jni" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/PixFu/src/core" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/PixFu/src/input" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/PixFu/src/items" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/PixFu/src/support" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/PixFu/src/arch/android" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/PixFu/src/arch/android/plugins" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/lib/PixFu/src/arch/android/input" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/ap_generated_sources/debug/out" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/aidl_source_output_dir/debug/compileDebugAidl/out" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/debug" isTestSource="false" generated="true" />

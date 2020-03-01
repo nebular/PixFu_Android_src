@@ -21,15 +21,15 @@
 
 #include <EGL/egl.h>
 #include "RendererPix.h"
-#include "PixFu.hpp"
+#include "Fu.hpp"
 #include "Utils.hpp"
 #include "arch/android/platform_android.hpp"
 
-namespace rgl {
+namespace Pix {
 
 	const std::string RendererPix::TAG = "RendererPix";
 
-	RendererPix::RendererPix(rgl::PixFu *engine)
+	RendererPix::RendererPix(Pix::Fu *engine)
 			: mEglContext(eglGetCurrentContext()),
 			  pEngine(engine) {
 	}
@@ -42,7 +42,7 @@ namespace rgl {
 		}
 	}
 
-	RendererPix *RendererPix::createRender(rgl::PixFu *engine) {
+	RendererPix *RendererPix::createRender(Pix::Fu *engine) {
 		return new RendererPix(engine);
 	}
 
@@ -118,7 +118,7 @@ namespace rgl {
 		}
 	}
 
-	void RendererPix::onMotionEvent(rgl::MotionEvent_t event) {
+	void RendererPix::onMotionEvent(Pix::MotionEvent_t event) {
 
 		// MotionEvent supplied here by the Java part, then we send it down to the engine. It will be
 		// translated into GetMouse positions.

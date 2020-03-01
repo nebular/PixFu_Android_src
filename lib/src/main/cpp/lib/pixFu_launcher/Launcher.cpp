@@ -13,14 +13,14 @@
 #include <cstdlib>
 #include <cstring>
 #include <ctime>
-#include "PixFu.hpp"
+#include "Fu.hpp"
 #include "Launcher.h"
 #include "RendererPix.h"
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-parameter"
 
-static rgl::Renderer *g_renderer = nullptr;
+static Pix::Renderer *g_renderer = nullptr;
 
 
 // these functions are called from Java, hence the exotic decorations
@@ -67,7 +67,7 @@ Java_tv_nebular_pixFu_launcher_NativeLauncher_init(JNIEnv *env, jclass obj,
 		 * copied here by the Java part.
 		 */
 
-		rgl::PixFuPlatform::setPath(std::string(cstr) + "/");
+		Pix::FuPlatform::setPath(std::string(cstr) + "/");
 
 		/*
 		 * Creates the Pge Renderer. It is there where we will instantiate the PGE, and
@@ -77,14 +77,14 @@ Java_tv_nebular_pixFu_launcher_NativeLauncher_init(JNIEnv *env, jclass obj,
 		const char *versionStr = (const char *) glGetString(GL_VERSION);
 		if ((strstr(versionStr, "OpenGL ES 3.") && gl3stubInit()) ||
 			strstr(versionStr, "OpenGL ES 2.")) {
-			rgl::PixFuPlatform *platform = rgl::PixFuPlatformAndroid::instance();
-			rgl::PixFu *engine = (dynamic_cast<rgl::PixFuPlatformAndroid *>(platform))->engine();
-			g_renderer = rgl::RendererPix::createRender(engine);
+			Pix::FuPlatform *platform = Pix::PixFuPlatformAndroid::instance();
+			Pix::Fu *engine = (dynamic_cast<Pix::PixFuPlatformAndroid *>(platform))->engine();
+			g_renderer = Pix::RendererPix::createRender(engine);
 		} else {
 			ALOGE("Unsupported OpenGL ES version");
 		}
 	} else {
-		g_renderer->onLifeCycle(rgl::Renderer::ONSURFACECREATED);
+		g_renderer->onLifeCycle(Pix::Renderer::ONSURFACECREATED);
 	}
 }
 
@@ -121,7 +121,7 @@ extern "C" JNIEXPORT void JNICALL
 Java_tv_nebular_pixFu_launcher_NativeLauncher_onPause(JNIEnv *env, jclass obj,
 															jboolean status) {
 	if (g_renderer) {
-		g_renderer->onLifeCycle(status ? rgl::Renderer::ONPAUSE : rgl::Renderer::ONRESUME);
+		g_renderer->onLifeCycle(status ? Pix::Renderer::ONPAUSE : Pix::Renderer::ONRESUME);
 	}
 }
 
@@ -156,7 +156,7 @@ Java_tv_nebular_pixFu_launcher_NativeLauncher_onTouch(JNIEnv *jenv, jclass obj,
 		y1 = jenv->CallFloatMethod(motionEvent, getYMethodId, 1);
 	}
 
-	rgl::MotionEvent_t inputEvent;
+	Pix::MotionEvent_t inputEvent;
 	inputEvent.PointersCount = pointersCount;
 	inputEvent.Action = action;
 	inputEvent.RawAction = decodedAction;

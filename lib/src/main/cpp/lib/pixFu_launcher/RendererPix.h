@@ -11,12 +11,12 @@
  */
 
 #include "Launcher.h"
-#include "PixFu.hpp"
+#include "Fu.hpp"
 #include "arch/android/platform_android.hpp"
 #include <EGL/egl.h>
 #include "Renderer.h"
 
-namespace rgl {
+namespace Pix {
 
 	class RendererPix : public Renderer {
 
@@ -24,7 +24,7 @@ namespace rgl {
 
 	public:
 
-		RendererPix(rgl::PixFu *engine);
+		RendererPix(Pix::Fu *engine);
 
 		virtual ~RendererPix();
 
@@ -32,7 +32,7 @@ namespace rgl {
 
 		void onMotionEvent(MotionEvent_t event);
 
-		static RendererPix *createRender(rgl::PixFu *engine);
+		static RendererPix *createRender(Pix::Fu *engine);
 
 	protected:
 
@@ -44,7 +44,7 @@ namespace rgl {
 		float mCounter = 0;
 		EGLContext mEglContext;
 
-		rgl::PixFu *pEngine = nullptr;
+		Pix::Fu *pEngine = nullptr;
 
 		void onLifeCycle(LCycle_t status);
 	};

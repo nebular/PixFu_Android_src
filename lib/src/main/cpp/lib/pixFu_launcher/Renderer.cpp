@@ -12,7 +12,7 @@
 #include "Launcher.h"
 #include "Utils.hpp"
 
-namespace rgl {
+namespace Pix {
 
 	Renderer::Renderer() : mLastFrameNs(0) {}
 

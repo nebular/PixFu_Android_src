@@ -12,13 +12,13 @@
 #include <string.h>
 #include <time.h>
 
-#include "PixFu.hpp"
+#include "Fu.hpp"
 #include "arch/android/platform_android.hpp"
 
 // ----------------------------------------------------------------------------
 // Interface to the ES2 and ES3 renderers, used by JNI code.
 
-namespace rgl {
+namespace Pix {
 
 class Renderer {
 
